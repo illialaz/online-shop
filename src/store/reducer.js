@@ -1,21 +1,13 @@
-import { CHANGE_CATEGORY, CHANGE_CURRENCY } from './constants'
+import { combineReducers } from 'redux'
 
-const initialState = {
-  products: [],
-  loading: true,
-  cartList: ['a', 'b', 'c'],
-  activeCategory: 'all',
-  currency: 'USD',
-  currencyList: ['USD', 'EUR', 'RUB'],
-}
+import { reducer as cart } from '../components/nav-bar/components/cart/store'
+import { reducer as currency_cart } from '../components/nav-bar/components/currency-cart-container/store'
+import { reducer as currency } from '../components/nav-bar/components/currency/store'
+import { reducer as categories } from '../components/nav-bar/components/categories/store'
 
-export const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case CHANGE_CATEGORY:
-      return { ...state, activeCategory: action.category }
-    case CHANGE_CURRENCY:
-      return { ...state, currency: action.currency }
-    default:
-      return state
-  }
-}
+export const reducer = combineReducers({
+  cart,
+  currency,
+  currency_cart,
+  categories,
+})

@@ -1,0 +1,104 @@
+.cart {
+  position: relative;
+  cursor: pointer;
+}
+
+.cart-symbol {
+  position: relative;
+}
+
+.cart-symbol .counter {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--black);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  right: -13px;
+  bottom: 12px;
+  font-family: Roboto;
+}
+
+.minicart {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  cursor: default;
+  top: 51px;
+  width: 325px;
+  max-height: 80vh;
+  right: -15px;
+  background-color: white;
+  padding: 8px 16px 20px 16px;
+}
+
+.minicart .empty-bag {
+  margin-top: 40px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.minicart .cart-list {
+  margin-bottom: 130px;
+  overflow-y: scroll;
+}
+
+.cart-list span {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.minicart .cart-bottom {
+  position: absolute;
+  bottom: 20px;
+  width: 292px;
+}
+
+.minicart .total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 22px 0 35px 0;
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.minicart .total .price {
+  font-weight: 700;
+}
+
+.minicart .buttons {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.minicart .buttons .check-out,
+.view-bag {
+  border: none;
+  cursor: pointer;
+  color: white;
+  box-sizing: border-box;
+  padding: 13px 29.5px;
+  height: 43px;
+  width: 140px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #5ece7b;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.minicart .buttons .view-bag {
+  border: 1px solid var(--black);
+  color: var(--black);
+  padding: 12px 35px;
+  background-color: white;
+}

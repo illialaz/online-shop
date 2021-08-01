@@ -8,7 +8,10 @@
 body {
   font-family: Raleway, sans-serif;
   font-style: normal;
-  font-size: 18px;
+  font-size: 16px;
+  --black: #1d1f22;
+  color: var(--black);
+  font-weight: 400;
 }
 
 #root {
@@ -25,11 +28,5 @@ ul {
 
 li {
   flex: 1;
-  display: inline-block;
   list-style-type: none;
-  text-transform: uppercase;
-}
-
-.cartPage:hover {
-  background-color: black;
 }

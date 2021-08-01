@@ -2,15 +2,23 @@ import './styles.css'
 import React, { Component } from 'react'
 
 import logo from '../../assets/images/logo.svg'
-import { Categories } from '../categories'
-import CurrencyCartContainer from '../currency-cart-container/currency-cart-container'
+import { Categories } from './components/categories'
+import { CurrencyCartContainer } from './components/currency-cart-container'
+import { Link } from 'react-router-dom'
 
 export class NavBar extends Component {
   render = () => {
     return (
       <nav className="navbar">
         <div className="nav-center">
-          <img src={logo} alt="Logo" />
+          <Link to="/products">
+            <img
+              src={logo}
+              alt="Logo"
+              className="logo"
+              onClick={() => console.log('click')}
+            />
+          </Link>
           <div className="nav">
             <Categories />
             <CurrencyCartContainer />

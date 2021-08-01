@@ -9,14 +9,16 @@ import { Cart, Product, Products } from './pages'
 
 import { NavBar } from './components/nav-bar'
 import './styles.css'
+import { connect } from 'react-redux'
 
-export class App extends React.Component {
+class AppComponent extends React.Component {
   render = () => {
+    const { showCartList } = this.props
     return (
       <>
-        <NavBar />
-        <main className="main">
-          <Router>
+        <Router>
+          <NavBar />
+          <main className="main">
             <Switch>
               <Route exact path="/products" component={Products} />
               <Route exact path="/product" component={Product} />
@@ -25,10 +27,19 @@ export class App extends React.Component {
                 <Redirect to="/products" />
               </Route>
             </Switch>
-          </Router>
-          <div className="shadow"></div>
-        </main>
+            {showCartList && <div className="shadow"></div>}
+          </main>
+        </Router>
       </>
     )
   }
 }
+
+const mapStoreToProps = (state) => {
+  const { showCartList } = state.currency_cart
+  return {
+    showCartList,
+  }
+}
+
+export const App = connect(mapStoreToProps)(AppComponent)

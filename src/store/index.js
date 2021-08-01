@@ -13,3 +13,5 @@ export const store = createStore(
   reducer,
   composeWithDevTools(applyMiddleware(...middleware))
 )
+
+console.log(store.getState())

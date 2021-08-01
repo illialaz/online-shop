@@ -2,7 +2,7 @@ import './styles.css'
 import React from 'react'
 import { connect } from 'react-redux'
 
-import Product from '../product'
+import Product from './components/product'
 class ProductListComponent extends React.Component {
   render() {
     const { products } = this.props

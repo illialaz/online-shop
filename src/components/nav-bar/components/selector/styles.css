@@ -1,0 +1,33 @@
+.selector {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin: 20px 0 0 0;
+  text-transform: capitalize;
+}
+
+.selector .attribute {
+  display: flex;
+}
+
+.selector .selector-button {
+  border: 1px solid var(--black);
+  background-color: #a6a6a6;
+  opacity: 40%;
+  cursor: pointer;
+  text-transform: capitalize;
+  margin: 5px 0 0 0;
+  height: 24px;
+  min-width: 24px;
+}
+
+.selector .selector-button:hover {
+  background-color: #a6a6a6;
+  opacity: 60%;
+}
+
+.selector .selected .selector-button {
+  background-color: white;
+  cursor: default;
+  opacity: 100%;
+}

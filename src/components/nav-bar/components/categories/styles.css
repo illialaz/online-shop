@@ -1,0 +1,6 @@
+.categories {
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+  font-weight: 300;
+}

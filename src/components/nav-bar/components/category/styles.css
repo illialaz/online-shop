@@ -1,0 +1,10 @@
+.category {
+  margin: 30px 16px;
+  cursor: pointer;
+}
+
+.active-category {
+  border-bottom: 2px solid #5ece7b;
+  color: #5ece7b;
+  font-weight: 600;
+}
