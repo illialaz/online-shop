@@ -1,32 +1,30 @@
 import React, { Component } from 'react'
-import './styles.css'
 import { connect } from 'react-redux'
+import './styles.css'
 
-import { changeAttribute } from '../cart/store/actions'
+import { changeAttribute } from '../../../../store/actions'
 
 class SelectorComponent extends Component {
   render() {
-    const { attributes, selector, changeAttribute, cartId } = this.props
-    const attrValues = attributes.value
-    const attrName = attributes.key
+    const { attributes, ownAttribute, changeAttribute, cartId } = this.props
     return (
-      <li className="cart-selector">
-        <div>{attrName}</div>
-        <ul className="cart-attribute">
-          {attrValues.map((attribute, index) => {
+      <li className="cartitem-selector">
+        <div className="cartitem-attrname">{attributes.key}</div>
+        <ul className="cartitem-attribute">
+          {attributes.value.map((attribute, index) => {
             return (
               <li
-                className={attribute === selector ? 'selected' : ''}
+                className={attribute === ownAttribute ? 'selected' : ''}
                 key={index}
               >
                 <button
                   type="button"
-                  className="selector-button"
+                  className="attrselector-button"
                   style={{ backgroundColor: attribute }}
                   onClick={() =>
-                    attribute !== selector &&
+                    attribute !== ownAttribute &&
                     changeAttribute({
-                      name: attrName,
+                      name: attributes.key,
                       value: attribute,
                       cartId,
                     })

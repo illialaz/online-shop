@@ -26,14 +26,14 @@ class CartComponent extends Component {
         <div className="cart-symbol">
           <img src={cartLogo} alt="Cart" />
           {cartIds.length !== 0 && (
-            <div className="counter">{cartIds.length}</div>
+            <div className="cart-counter">{cartIds.length}</div>
           )}
         </div>
 
         {showCartList && (
           <div className="minicart">
             <section className="cart-list" onClick={(e) => e.stopPropagation()}>
-              <div>
+              <div className="">
                 <span>My Bag</span>, {cartIds.length || 0} item
                 {cartIds.length !== 1 && 's'}
               </div>

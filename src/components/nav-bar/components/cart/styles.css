@@ -7,7 +7,7 @@
   position: relative;
 }
 
-.cart-symbol .counter {
+.cart-symbol .cart-counter {
   position: absolute;
   display: flex;
   justify-content: center;

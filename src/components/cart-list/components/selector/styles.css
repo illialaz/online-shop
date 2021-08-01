@@ -1,0 +1,38 @@
+.cartitem-selector {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  text-transform: capitalize;
+}
+
+.cartitem-selector .cartitem-attribute {
+  display: flex;
+  height: 45px;
+}
+
+.cartitem-selector .attrselector-button {
+  border: 1px solid var(--black);
+  background-color: #a6a6a6;
+  opacity: 30%;
+  cursor: pointer;
+  text-transform: capitalize;
+  height: 45px;
+  min-width: 63px;
+  font-size: 14px;
+  margin-right: 12px;
+}
+
+.cartitem-selector .cartitem-attrname {
+  margin: 5px 0;
+}
+
+.cartitem-selector .attrselector-button:hover {
+  background-color: #a6a6a6;
+  opacity: 80%;
+}
+
+.cartitem-selector .selected .attrselector-button {
+  background-color: white;
+  cursor: default;
+  opacity: 100%;
+}

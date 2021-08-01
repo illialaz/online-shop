@@ -23,7 +23,7 @@ class CartItemComponent extends React.Component {
     const { name, prices, count, photoes, attributes, ownAttributes } = product
     const photo = photoes[0]
     return (
-      <li className="cart-item">
+      <ul className="cart-item">
         <div className="description">
           <div className="name">{name}</div>
           <div className="price">
@@ -64,7 +64,7 @@ class CartItemComponent extends React.Component {
         <div className="photo">
           <img src={photo} alt="Item" id="main-photo" />
         </div>
-      </li>
+      </ul>
     )
   }
 }
