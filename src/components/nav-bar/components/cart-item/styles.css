@@ -1,6 +1,6 @@
 .cart-item {
   display: flex;
-  margin: 20px 0 40px 0;
+  margin-top: 20px;
 }
 
 .cart-item .count {

@@ -44,7 +44,8 @@
 }
 
 .minicart .cart-list {
-  margin-bottom: 130px;
+  position: flex;
+  flex-grow: 1;
   overflow-y: scroll;
 }
 
@@ -54,16 +55,16 @@
 }
 
 .minicart .cart-bottom {
-  position: absolute;
-  bottom: 20px;
-  width: 292px;
+  display: flex;
+  flex-grow: 0;
+  flex-direction: column;
 }
 
 .minicart .total {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 22px 0 35px 0;
+  margin: 42px 0 35px 0;
   text-transform: capitalize;
   font-weight: 500;
   font-size: 16px;
