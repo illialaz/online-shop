@@ -4,6 +4,7 @@ import { createLogger } from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { reducer } from './reducer'
+import { fetchProducts } from './actions'
 
 const middleware = []
 middleware.push(thunk)
@@ -14,4 +15,4 @@ export const store = createStore(
   composeWithDevTools(applyMiddleware(...middleware))
 )
 
-console.log(store.getState())
+store.dispatch(fetchProducts('all'))

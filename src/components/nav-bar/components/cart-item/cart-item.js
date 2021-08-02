@@ -8,6 +8,7 @@ import minus from '../../../../assets/images/minus.svg'
 import {
   increaseProductCount,
   decreaseProductCount,
+  deleteProduct,
 } from '../cart/store/actions'
 
 class CartItemComponent extends React.Component {
@@ -17,6 +18,7 @@ class CartItemComponent extends React.Component {
       currency,
       increaseProductCount,
       decreaseProductCount,
+      deleteProduct,
       cartId,
       currencyName,
     } = this.props
@@ -46,7 +48,6 @@ class CartItemComponent extends React.Component {
             type="button"
             className="count-button"
             onClick={() => {
-              console.log(cartId)
               increaseProductCount(cartId)
             }}
           >
@@ -56,7 +57,9 @@ class CartItemComponent extends React.Component {
           <button
             type="button"
             className="count-button"
-            onClick={() => decreaseProductCount(cartId)}
+            onClick={() => {
+              count === 1 ? deleteProduct(cartId) : decreaseProductCount(cartId)
+            }}
           >
             <img src={minus} alt="minus" />
           </button>
@@ -69,11 +72,13 @@ class CartItemComponent extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   const { currency, currencyList } = state.currency
+  const { cart } = state.cart
   return {
     currency: currencyList[currency].short,
     currencyName: currency,
+    product: cart[ownProps.cartId],
   }
 }
 
@@ -81,6 +86,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     increaseProductCount: (cartId) => dispatch(increaseProductCount(cartId)),
     decreaseProductCount: (cartId) => dispatch(decreaseProductCount(cartId)),
+    deleteProduct: (cartId) => dispatch(deleteProduct(cartId)),
   }
 }
 

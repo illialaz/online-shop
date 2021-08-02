@@ -2,6 +2,7 @@ import {
   CHANGE_ATTRIBUTE,
   INCREASE_PRODUCT_COUNT,
   DECREASE_PRODUCT_COUNT,
+  DELETE_PRODUCT,
 } from './constants'
 
 const initialState = {
@@ -64,8 +65,17 @@ const initialState = {
 }
 
 export const reducer = (state = initialState, action) => {
-  const { cart } = state
+  const { cart, cartIds } = state
+
   switch (action.type) {
+    case DELETE_PRODUCT:
+      const tempCart = { ...cart }
+      delete tempCart[action.cartId]
+      return {
+        ...state,
+        cart: tempCart,
+        cartIds: cartIds.filter((value) => value !== action.cartId),
+      }
     case INCREASE_PRODUCT_COUNT:
       return {
         ...state,
@@ -84,14 +94,12 @@ export const reducer = (state = initialState, action) => {
           ...cart,
           [action.cartId]: {
             ...cart[action.cartId],
-            count:
-              cart[action.cartId].count > 0 ? cart[action.cartId].count - 1 : 0,
+            count: cart[action.cartId].count - 1,
           },
         },
       }
     case CHANGE_ATTRIBUTE:
       const { name, value, cartId } = action.newAttribute
-      console.log(action.newAttribute)
       return {
         ...state,
         cart: {

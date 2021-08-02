@@ -1,30 +1,26 @@
 import './styles.css'
 import React from 'react'
 import { connect } from 'react-redux'
+import './styles.css'
 
-import Product from './components/product'
+import { Product } from './components/product'
 class ProductListComponent extends React.Component {
   render() {
-    const { products, category } = this.props
+    const { productIds } = this.props
     return (
-      <section className="list-products">
-        <div className="category">{category}</div>
-        <ul>
-          {products.map((product) => {
-            return <Product key={product.id} />
-          })}
-        </ul>
-      </section>
+      <ul className="products-list">
+        {productIds.map((id) => {
+          return <Product key={id} productId={id} />
+        })}
+      </ul>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  const { products } = state.products
-  const { activeCategory } = state.categories
+  const { productIds } = state.products
   return {
-    products,
-    category: activeCategory,
+    productIds,
   }
 }
 

@@ -10,6 +10,7 @@ import arrowRight from '../../../../assets/images/arrowRight.svg'
 import {
   increaseProductCount,
   decreaseProductCount,
+  deleteProduct,
 } from '../../../../store/actions'
 
 class CartItemComponent extends Component {
@@ -41,6 +42,7 @@ class CartItemComponent extends Component {
       currencyName,
       increaseProductCount,
       decreaseProductCount,
+      deleteProduct,
     } = this.props
     const { photoes, name, count, attributes, prices, ownAttributes } = product
     return (
@@ -79,7 +81,9 @@ class CartItemComponent extends Component {
               type="button"
               className="decrease"
               onClick={() => {
-                decreaseProductCount(cartId)
+                count === 1
+                  ? deleteProduct(cartId)
+                  : decreaseProductCount(cartId)
               }}
             >
               <img src={minus} alt="minus" />
@@ -102,11 +106,13 @@ class CartItemComponent extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   const { currency, currencyList } = state.currency
+  const { cart } = state.cart
   return {
     currency: currencyList[currency].short,
     currencyName: currency,
+    product: cart[ownProps.cartId],
   }
 }
 
@@ -114,6 +120,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     increaseProductCount: (cartId) => dispatch(increaseProductCount(cartId)),
     decreaseProductCount: (cartId) => dispatch(decreaseProductCount(cartId)),
+    deleteProduct: (cartId) => dispatch(deleteProduct(cartId)),
   }
 }
 

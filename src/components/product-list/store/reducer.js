@@ -1,9 +1,27 @@
-import { CHANGE_CATEGORY } from './constants'
+import { SET_PRODUCTS, LOADING } from './constants'
 
 const initialState = {
-  category: 'all',
-  productIds: [1, 2, 3, 4],
-  products: {
-    1: {},
-  },
+  productIds: [],
+  products: {},
+  loading: true,
+}
+
+export const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_PRODUCTS:
+      const { products, productIds } = action
+      return {
+        ...state,
+        products,
+        productIds,
+        loading: false,
+      }
+    case LOADING:
+      return {
+        ...state,
+        loading: true,
+      }
+    default:
+      return state
+  }
 }

@@ -21,7 +21,7 @@ class AppComponent extends React.Component {
           <main className="main">
             <Switch>
               <Route exact path="/products" component={Products} />
-              <Route exact path="/product" component={Product} />
+              <Route exact path="/products/:id" component={Product} />
               <Route exact path="/cart" component={Cart} />
               <Route path="*">
                 <Redirect to="/products" />

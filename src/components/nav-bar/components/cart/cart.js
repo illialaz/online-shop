@@ -42,7 +42,7 @@ class CartComponent extends Component {
               )}
               <ul>
                 {cartIds.map((id) => {
-                  return <CartItem product={cart[id]} cartId={id} key={id} />
+                  return <CartItem cartId={id} key={id} />
                 })}
               </ul>
             </section>

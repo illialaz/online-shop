@@ -6,11 +6,11 @@ import { CartItem } from './components/cart-item'
 
 class CartListComponent extends Component {
   render() {
-    const { cartIds, cart } = this.props
+    const { cartIds } = this.props
     return (
       <ul className="cart-list">
         {cartIds.map((id) => (
-          <CartItem key={id} product={cart[id]} cartId={id} />
+          <CartItem key={id} cartId={id} />
         ))}
       </ul>
     )
@@ -18,10 +18,9 @@ class CartListComponent extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { cartIds, cart } = state.cart
+  const { cartIds } = state.cart
   return {
     cartIds,
-    cart,
   }
 }
 

@@ -1,0 +1,31 @@
+.product-page {
+  margin: 80px 100px 72px 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-page .product-photoes {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+}
+
+.product-page .product-photoes .product-photo {
+  width: 79px;
+  height: 80px;
+  margin-bottom: 40px;
+}
+
+.product-page .product-photoes :last-child {
+  margin-bottom: 0;
+}
+
+.product-page .product-main-photo {
+  width: 610px;
+  height: 511px;
+}
+
+.product-page .product-description {
+  display: flex;
+  flex-direction: column;
+}
