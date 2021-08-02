@@ -1,3 +1,10 @@
 .cart-page {
   margin: 80px 242px 54px 100px;
 }
+
+.cart-page .cart-inscription {
+  margin-bottom: 60px;
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+}

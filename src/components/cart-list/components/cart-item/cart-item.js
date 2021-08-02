@@ -68,7 +68,9 @@ class CartItemComponent extends Component {
             <button
               className="increase"
               type="button"
-              onClick={() => increaseProductCount(cartId)}
+              onClick={() => {
+                increaseProductCount(cartId)
+              }}
             >
               <img src={plus} alt="plus" />
             </button>
@@ -76,7 +78,9 @@ class CartItemComponent extends Component {
             <button
               type="button"
               className="decrease"
-              onClick={() => decreaseProductCount(cartId)}
+              onClick={() => {
+                decreaseProductCount(cartId)
+              }}
             >
               <img src={minus} alt="minus" />
             </button>

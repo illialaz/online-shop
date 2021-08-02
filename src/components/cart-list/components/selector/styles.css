@@ -12,8 +12,7 @@
 
 .cartitem-selector .attrselector-button {
   border: 1px solid var(--black);
-  background-color: #a6a6a6;
-  opacity: 30%;
+  background-color: white;
   cursor: pointer;
   text-transform: capitalize;
   height: 45px;
@@ -22,17 +21,22 @@
   margin-right: 12px;
 }
 
+.cartitem-selector .attrselector-button.colorised {
+  opacity: 40%;
+}
+
 .cartitem-selector .cartitem-attrname {
   margin: 5px 0;
 }
 
 .cartitem-selector .attrselector-button:hover {
   background-color: #a6a6a6;
-  opacity: 80%;
+  opacity: 90%;
 }
 
 .cartitem-selector .selected .attrselector-button {
-  background-color: white;
+  background-color: var(--black);
+  color: white;
   cursor: default;
   opacity: 100%;
 }

@@ -5,7 +5,8 @@ import './styles.css'
 export class Cart extends Component {
   render() {
     return (
-      <div className="cart-page" onClick={() => console.log('CLICK')}>
+      <div className="cart-page">
+        <div className="cart-inscription">cart</div>
         <CartList />
       </div>
     )
