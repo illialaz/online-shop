@@ -43,13 +43,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 45px;
-  height: 45px;
+  width: 30px;
+  height: 30px;
   border: 1px solid var(--black);
   cursor: pointer;
   font-size: 24;
   padding: 0;
   font-weight: 500;
+}
+
+@media screen and (min-width: 550px) {
+  .cartitem-count .decrease,
+  .cartitem-count .increase {
+    height: 45px;
+    width: 45px;
+  }
 }
 
 .cartitem-count .decrease:hover,

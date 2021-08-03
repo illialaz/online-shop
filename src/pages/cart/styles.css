@@ -1,5 +1,23 @@
 .cart-page {
-  margin: 80px 242px 54px 100px;
+  margin: 10px 30px 10px 20px;
+}
+
+@media screen and (min-width: 500px) {
+  .cart-page {
+    margin: 30px 30px 20px 30px;
+  }
+}
+
+@media screen and (min-width: 872px) {
+  .cart-page {
+    margin: 50px 50px 20px 50px;
+  }
+}
+
+@media screen and (min-width: 1320px) {
+  .cart-page {
+    margin: 80px 242px 20px 100px;
+  }
 }
 
 .cart-page .cart-inscription {

@@ -15,10 +15,17 @@
   background-color: white;
   cursor: pointer;
   text-transform: capitalize;
-  height: 45px;
-  min-width: 63px;
+  height: 30px;
+  min-width: 30px;
   font-size: 14px;
   margin-right: 12px;
+}
+
+@media screen and (min-width: 550px) {
+  .cartitem-selector .attrselector-button {
+    height: 45px;
+    min-width: 63px;
+  }
 }
 
 .cartitem-selector .attrselector-button.colorised {

@@ -32,27 +32,29 @@ class ProductComponent extends Component {
     const { ownAttributes, attrNames } = this.state
     return (
       <div className="product-page">
-        <ul className="product-photoes">
-          {photoes.map((photo, index) => {
-            return (
-              <li key={index}>
-                <img
-                  className="product-photo"
-                  src={photo}
-                  alt="prod"
-                  key={index}
-                  onClick={() => this.changePhoto(index)}
-                />
-              </li>
-            )
-          })}
-        </ul>
-        <div>
-          <img
-            className="product-main-photo"
-            src={photoes[this.state.activeImage]}
-            alt="main"
-          />
+        <div className="photoes-container">
+          <ul className="product-photoes">
+            {photoes.map((photo, index) => {
+              return (
+                <li key={index}>
+                  <img
+                    className="product-photo"
+                    src={photo}
+                    alt="prod"
+                    key={index}
+                    onClick={() => this.changePhoto(index)}
+                  />
+                </li>
+              )
+            })}
+          </ul>
+          <div>
+            <img
+              className="product-main-photo"
+              src={photoes[this.state.activeImage]}
+              alt="main"
+            />
+          </div>
         </div>
         <div className="product-description">
           <div className="product-name">{name}</div>

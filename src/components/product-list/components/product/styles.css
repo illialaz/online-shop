@@ -6,15 +6,46 @@
   font-size: 18px;
   font-weight: 300;
   color: var(--black);
-  height: 444px;
-  width: 386px;
+  height: 350px;
+  width: 300px;
   flex-grow: 0;
-  margin: 0 calc((100% - (3 * 386px)) / 6) 103px calc((100% - (3 * 386px)) / 6);
+  margin: 0 calc((100% - 386px) / 2) 40px calc((100% - 386px) / 2);
 }
 
 .list-product a {
-  height: 444px;
-  width: 386px;
+  height: 350px;
+  width: 300px;
+}
+
+@media screen and (min-width: 500px) {
+  .list-product {
+    height: 444px;
+    width: 386px;
+  }
+  .list-product a {
+    height: 444px;
+    width: 386px;
+  }
+}
+
+@media screen and (min-width: 830px) {
+  .list-product {
+    margin: 0 calc((100% - (2 * 386px)) / 4) 60px calc((100% - (2 * 386px)) / 4);
+  }
+}
+
+@media screen and (min-width: 1358px) {
+  .list-product {
+    margin: 0 calc((100% - (3 * 386px)) / 6) 103px
+      calc((100% - (3 * 386px)) / 6);
+  }
+}
+
+@media screen and (min-width: 1744px) {
+  .list-product {
+    margin: 0 calc((100% - (4 * 386px)) / 8) 103px
+      calc((100% - (4 * 386px)) / 8);
+  }
 }
 
 .list-product:hover {
