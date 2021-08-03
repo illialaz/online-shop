@@ -1,4 +1,4 @@
-import { CHANGE_CURRENCY, SET_CURRENCY } from './constants'
+import { CHANGE_CURRENCY, SET_CURRENCY } from './types'
 
 const initialState = {
   currency: 'USD',

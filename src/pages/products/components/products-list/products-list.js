@@ -1,10 +1,10 @@
-import './styles.css'
 import React from 'react'
 import { connect } from 'react-redux'
 import './styles.css'
 
-import { Product } from './components/product'
-class ProductListComponent extends React.Component {
+import { Product } from '../product'
+
+class ProductsListComponent extends React.Component {
   render() {
     const { productIds } = this.props
     return (
@@ -24,4 +24,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export const ProductList = connect(mapStateToProps)(ProductListComponent)
+export const ProductsList = connect(mapStateToProps)(ProductsListComponent)

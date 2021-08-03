@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import './styles.css'
 import { connect } from 'react-redux'
+import './styles.css'
 
-import { ProductList } from '../../components/product-list'
+import { ProductsList } from './components/products-list'
 
 class ProductsComponent extends Component {
   render() {
@@ -11,7 +11,7 @@ class ProductsComponent extends Component {
       <div className="products-page">
         <div className="category-name">{category}</div>
         {loading && <div>Loading...</div>}
-        <ProductList />
+        <ProductsList />
       </div>
     )
   }

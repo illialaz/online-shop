@@ -1,7 +1,8 @@
-import { client } from './index'
 import { gql } from '@apollo/client'
 
-import { SET_PRODUCTS, LOADING } from './constants'
+import { apolloClient } from '../../services/apollo-client'
+
+import { SET_PRODUCTS, LOADING } from './types'
 
 export const fetchProducts = (category) => {
   const title = category === 'all' ? '' : category
@@ -36,7 +37,7 @@ export const fetchProducts = (category) => {
 
   return (dispatch) => {
     dispatch(isLoading())
-    client
+    apolloClient
       .query({
         query: GET_PRODUCTS,
         variables: { title },

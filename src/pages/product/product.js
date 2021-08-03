@@ -18,7 +18,6 @@ class ProductComponent extends Component {
 
   changeAttribute = (attribute) => {
     const { key, value } = attribute
-    console.log(this.state)
     this.setState({
       ownAttributes: { ...this.state.ownAttributes, [key]: value },
       attrNames: [...new Set([...this.state.attrNames, key])],

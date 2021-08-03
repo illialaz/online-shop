@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './styles.css'
 
-import { CartItem } from './components/cart-item'
+import { CartItem } from '../cart-item'
 
 class CartListComponent extends Component {
   render() {

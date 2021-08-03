@@ -1,6 +1,6 @@
-import './styles.css'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import './styles.css'
 
 import { all, tech, clothes } from './constants'
 import { Category } from '../category'

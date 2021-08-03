@@ -4,7 +4,7 @@ import {
   DECREASE_PRODUCT_COUNT,
   DELETE_PRODUCT,
   ADD_TO_CART,
-} from './constants'
+} from './types'
 
 export const changeAttribute = (newAttribute) => {
   return {

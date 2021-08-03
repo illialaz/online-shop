@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import cartLogo from '../../../../assets/images/cart.svg'
+import cartLogo from '../../../assets/images/cart.svg'
+import { handleShowCart } from '../../../store/actions'
 import { CartItem } from '../cart-item'
-import { handleShowCart } from '../currency-cart-container/store/actions'
 
 class CartComponent extends Component {
   render = () => {
@@ -77,7 +77,7 @@ class CartComponent extends Component {
 
 const mapStateToProps = (state) => {
   const { cart, cartIds } = state.cart
-  const { showCartList } = state.currency_cart
+  const { showCartList } = state.currencyCart
   const { currency, currencyList } = state.currency
   return {
     cart,

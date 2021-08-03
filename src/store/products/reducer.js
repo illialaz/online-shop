@@ -1,4 +1,4 @@
-import { SET_PRODUCTS, LOADING } from './constants'
+import { SET_PRODUCTS, LOADING } from './types'
 
 const initialState = {
   productIds: [],

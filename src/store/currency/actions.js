@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
-import { client } from '../../../../product-list/store/index'
+import { apolloClient } from '../../services/apollo-client'
 
-import { CHANGE_CURRENCY, SET_CURRENCY } from './constants'
+import { CHANGE_CURRENCY, SET_CURRENCY } from './types'
 
 const currencySymbols = {
   USD: '$',
@@ -44,13 +44,12 @@ export const fetchCurrency = () => {
   `
 
   return (dispatch) => {
-    client
+    apolloClient
       .query({
         query: GET_CURRENCY,
       })
       .then((data) => {
         const { currencyNames, currencyList } = formatData(data)
-        console.log(currencyList, currencyNames)
         dispatch(setCurrency({ currencyList, currencyNames }))
       })
   }

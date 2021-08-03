@@ -7,13 +7,20 @@ import {
 } from 'react-router-dom'
 import { connect } from 'react-redux'
 
+import { fetchProducts, fetchCurrency } from './store/actions'
 import { Cart, Product, Products } from './pages'
 import { NavBar } from './components/nav-bar'
 import { ScrollToTop } from './components/scroll-to-top'
 import './styles.css'
 
 class AppComponent extends React.Component {
-  render = () => {
+  componentDidMount() {
+    const { fetchCurrency, fetchProducts } = this.props
+    fetchProducts()
+    fetchCurrency()
+  }
+
+  render() {
     const { showCartList } = this.props
     return (
       <Router>
@@ -35,11 +42,18 @@ class AppComponent extends React.Component {
   }
 }
 
-const mapStoreToProps = (state) => {
-  const { showCartList } = state.currency_cart
+const mapStateToProps = (state) => {
+  const { showCartList } = state.currencyCart
   return {
     showCartList,
   }
 }
 
-export const App = connect(mapStoreToProps)(AppComponent)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchProducts: () => dispatch(fetchProducts('all')),
+    fetchCurrency: () => dispatch(fetchCurrency()),
+  }
+}
+
+export const App = connect(mapStateToProps, mapDispatchToProps)(AppComponent)

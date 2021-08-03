@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import './styles.css'
 
 import whiteCart from '../../../../assets/images/whitecart.svg'
-import { addToCart } from '../../../nav-bar/components/cart/store/actions'
+import { addToCart } from '../../../../store/actions'
 
 class ProductComponent extends React.Component {
   render() {

@@ -1,9 +1,8 @@
-import './styles.css'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import './styles.css'
 
-import { changeCategory } from '../categories/store/actions'
-import { fetchProducts } from '../../../product-list/store/actions'
+import { changeCategory, fetchProducts } from '../../../store/actions'
 
 export default class CategoryComponent extends Component {
   render() {

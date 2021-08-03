@@ -1,4 +1,4 @@
-import { HANDLE_SHOW_CART, HANDLE_SHOW_CURRENCY } from './constants'
+import { HANDLE_SHOW_CART, HANDLE_SHOW_CURRENCY } from './types'
 
 export const handleShowCart = () => {
   return {

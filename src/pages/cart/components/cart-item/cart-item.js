@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './styles.css'
 
-import { Selector } from '../selector'
 import plus from '../../../../assets/images/bigplus.svg'
 import minus from '../../../../assets/images/bigminus.svg'
 import arrowLeft from '../../../../assets/images/arrowLeft.svg'
@@ -12,6 +11,7 @@ import {
   decreaseProductCount,
   deleteProduct,
 } from '../../../../store/actions'
+import { Selector } from '../selector'
 
 class CartItemComponent extends Component {
   state = {

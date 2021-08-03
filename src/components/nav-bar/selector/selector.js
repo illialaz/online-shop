@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import './styles.css'
 import { connect } from 'react-redux'
+import './styles.css'
 
-import { changeAttribute } from '../cart/store/actions'
+import { changeAttribute } from '../../../store/actions'
 
 class SelectorComponent extends Component {
   render() {

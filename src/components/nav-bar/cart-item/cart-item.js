@@ -1,15 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import './styles.css'
 
-import { Selector } from '../selector'
-import { connect } from 'react-redux'
-import plus from '../../../../assets/images/plus.svg'
-import minus from '../../../../assets/images/minus.svg'
 import {
   increaseProductCount,
   decreaseProductCount,
   deleteProduct,
-} from '../cart/store/actions'
+} from '../../../store/actions'
+import plus from '../../../assets/images/plus.svg'
+import minus from '../../../assets/images/minus.svg'
+import { Selector } from '../selector'
 
 class CartItemComponent extends React.Component {
   render = () => {

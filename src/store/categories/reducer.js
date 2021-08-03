@@ -1,4 +1,4 @@
-import { CHANGE_CATEGORY } from './constants'
+import { CHANGE_CATEGORY } from './types'
 
 const initialState = {
   activeCategory: 'all',

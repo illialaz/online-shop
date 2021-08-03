@@ -1,10 +1,10 @@
-import './styles.css'
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import './styles.css'
 
 import logo from '../../assets/images/logo.svg'
-import { Categories } from './components/categories'
-import { CurrencyCartContainer } from './components/currency-cart-container'
-import { Link } from 'react-router-dom'
+import { Categories } from './categories'
+import { CurrencyCartContainer } from './currency-cart-container'
 
 export class NavBar extends Component {
   render = () => {

@@ -1,11 +1,10 @@
-import './styles.css'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import './styles.css'
 
-import arrowDown from '../../../../assets/images/arrowDown.svg'
-import arrowUp from '../../../../assets/images/arrowUp.svg'
-import { handleShowCurrency } from '../currency-cart-container/store/actions'
-import { changeCurrency } from './store/actions'
+import arrowDown from '../../../assets/images/arrowDown.svg'
+import arrowUp from '../../../assets/images/arrowUp.svg'
+import { changeCurrency, handleShowCurrency } from '../../../store/actions'
 
 class CurrencyComponent extends Component {
   render = () => {
@@ -45,7 +44,7 @@ class CurrencyComponent extends Component {
 
 const mapStateToProps = (state) => {
   const { currency, currencyList, currencyNames } = state.currency
-  const { showCurrencyList } = state.currency_cart
+  const { showCurrencyList } = state.currencyCart
   return {
     currency,
     currencyList,

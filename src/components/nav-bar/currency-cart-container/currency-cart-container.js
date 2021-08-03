@@ -1,5 +1,5 @@
-import './styles.css'
 import React, { Component } from 'react'
+import './styles.css'
 
 import { Cart } from '../cart'
 import { Currency } from '../currency'
