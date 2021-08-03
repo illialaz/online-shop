@@ -26,10 +26,10 @@ class CurrencyComponent extends Component {
         />
         {showCurrencyList && (
           <ul className="currency-list">
-            {currencyNames.map((name, index) => (
+            {currencyNames.map((name) => (
               <li
                 className="currency-list-item"
-                key={index}
+                key={name}
                 onClick={() => changeCurrency(name)}
               >
                 {currencyList[name].long}

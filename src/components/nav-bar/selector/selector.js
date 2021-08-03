@@ -13,11 +13,11 @@ class SelectorComponent extends Component {
       <li className="cart-selector">
         <div>{attrName}</div>
         <ul className="cart-attribute">
-          {attrValues.map((attribute, index) => {
+          {attrValues.map((attribute) => {
             return (
               <li
                 className={attribute === selector ? 'selected' : ''}
-                key={index}
+                key={attribute}
               >
                 <button
                   type="button"

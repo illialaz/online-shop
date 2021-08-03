@@ -14,7 +14,7 @@ class ProductComponent extends React.Component {
     return (
       <li className={'list-product ' + (inStock ? '' : 'out-of-stock')}>
         <Link to={'products/' + productId}>
-          <img className="main-image" src={photo} alt="prod" />
+          <img className="main-image" src={photo} alt="product" />
           {!inStock && <div className="stock-descr">out of stock</div>}
           <div className="name-price-container">
             <div>{name}</div>
@@ -31,7 +31,7 @@ class ProductComponent extends React.Component {
               addToCart({ ...product, ownAttributes: [] })
             }}
           >
-            <img src={whiteCart} alt="cart"></img>
+            <img src={whiteCart} alt="add to cart"></img>
           </div>
         )}
       </li>

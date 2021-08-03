@@ -35,12 +35,11 @@ class ProductComponent extends Component {
           <ul className="product-photoes">
             {photoes.map((photo, index) => {
               return (
-                <li key={index}>
+                <li key={photo}>
                   <img
                     className="product-photo"
                     src={photo}
-                    alt="prod"
-                    key={index}
+                    alt="product"
                     onClick={() => this.changePhoto(index)}
                   />
                 </li>
@@ -51,21 +50,21 @@ class ProductComponent extends Component {
             <img
               className="product-main-photo"
               src={photoes[this.state.activeImage]}
-              alt="main"
+              alt="main product"
             />
           </div>
         </div>
         <div className="product-description">
           <div className="product-name">{name}</div>
           <ul className="product-attributes">
-            {attributes.map((attr, index) => (
-              <li className="product-attribute" key={index}>
+            {attributes.map((attr) => (
+              <li className="product-attribute" key={attr.key}>
                 <div className="product-attr-name">{attr.key}:</div>
                 <ul className="product-attr-selectors">
-                  {attr.value.map((item, index) => {
+                  {attr.value.map((item) => {
                     return (
                       <li
-                        key={index}
+                        key={item}
                         className="product-attr-selector"
                         onClick={() => {
                           this.changeAttribute({ key: attr.key, value: item })

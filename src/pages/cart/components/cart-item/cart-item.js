@@ -54,13 +54,13 @@ class CartItemComponent extends Component {
             {currency} {prices[currencyName]}
           </div>
           <ul>
-            {attributes.map((item, index) => {
+            {attributes.map((item) => {
               return (
                 <Selector
                   attributes={item}
                   ownAttribute={ownAttributes[item.key]}
                   cartId={cartId}
-                  key={index}
+                  key={item.key}
                 />
               )
             })}

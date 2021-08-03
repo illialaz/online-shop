@@ -11,11 +11,11 @@ class SelectorComponent extends Component {
       <li className="cartitem-selector">
         <div className="cartitem-attrname">{attributes.key}</div>
         <ul className="cartitem-attribute">
-          {attributes.value.map((attribute, index) => {
+          {attributes.value.map((attribute) => {
             return (
               <li
                 className={attribute === ownAttribute ? 'selected' : ''}
-                key={index}
+                key={attribute}
               >
                 <button
                   type="button"

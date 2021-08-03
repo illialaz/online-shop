@@ -33,12 +33,12 @@ class CartItemComponent extends React.Component {
             {prices[currencyName].toFixed(2)}
           </div>
           <ul className="selectors">
-            {attributes.map((item, index) => (
+            {attributes.map((item) => (
               <Selector
                 attributes={item}
                 selector={ownAttributes[item.key]}
                 cartId={cartId}
-                key={index}
+                key={item.key}
               />
             ))}
           </ul>
@@ -65,7 +65,7 @@ class CartItemComponent extends React.Component {
           </button>
         </div>
         <div className="photo">
-          <img src={photo} alt="Item" id="main-photo" />
+          <img src={photo} alt="cart product" className="main-photo" />
         </div>
       </ul>
     )

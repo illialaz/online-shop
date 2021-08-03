@@ -51,7 +51,7 @@
   align-items: center;
 }
 
-#main-photo {
+.cart-item .photo .main-photo {
   width: 105px;
   height: 137px;
 }
