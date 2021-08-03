@@ -21,7 +21,7 @@ class SelectorComponent extends Component {
                   type="button"
                   className={
                     'attrselector-button ' +
-                    (attributes.key === 'color' ? 'colorised' : '')
+                    (attributes.type === 'swatch' ? 'colorised' : '')
                   }
                   style={{ backgroundColor: attribute }}
                   onClick={() =>
@@ -33,7 +33,7 @@ class SelectorComponent extends Component {
                     })
                   }
                 >
-                  {attributes.key !== 'color' && attribute}
+                  {attributes.type !== 'swatch' && attribute}
                 </button>
               </li>
             )

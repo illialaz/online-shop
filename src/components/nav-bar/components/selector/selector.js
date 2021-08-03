@@ -32,7 +32,7 @@ class SelectorComponent extends Component {
                     })
                   }
                 >
-                  {attributes.key !== 'color' && attribute}
+                  {attributes.type !== 'swatch' && attribute}
                 </button>
               </li>
             )

@@ -3,6 +3,7 @@ import {
   INCREASE_PRODUCT_COUNT,
   DECREASE_PRODUCT_COUNT,
   DELETE_PRODUCT,
+  ADD_TO_CART,
 } from './constants'
 
 export const changeAttribute = (newAttribute) => {
@@ -30,5 +31,12 @@ export const deleteProduct = (cartId) => {
   return {
     type: DELETE_PRODUCT,
     cartId,
+  }
+}
+
+export const addToCart = (product) => {
+  return {
+    type: ADD_TO_CART,
+    product,
   }
 }

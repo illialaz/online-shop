@@ -1,4 +1,4 @@
-import { CHANGE_CURRENCY } from './constants'
+import { CHANGE_CURRENCY, SET_CURRENCY } from './constants'
 
 const initialState = {
   currency: 'USD',
@@ -7,30 +7,22 @@ const initialState = {
       short: '$',
       long: '$USD',
     },
-    GPB: {
-      short: '£',
-      long: '£GPB',
-    },
-    AUD: {
-      short: 'A$',
-      long: '$AUD',
-    },
-    JPY: {
-      short: '¥',
-      long: '¥JPY',
-    },
-    RUB: {
-      short: '₽',
-      long: '₽RUB',
-    },
   },
-  currencyNames: ['USD', 'GPB', 'AUD', 'JPY', 'RUB'],
+  currencyNames: ['USD'],
 }
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_CURRENCY:
       return { ...state, currency: action.currency }
+    case SET_CURRENCY: {
+      const { currencyList, currencyNames } = action
+      return {
+        ...state,
+        currencyList,
+        currencyNames,
+      }
+    }
     default:
       return state
   }

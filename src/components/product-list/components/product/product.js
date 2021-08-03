@@ -4,28 +4,36 @@ import { Link } from 'react-router-dom'
 import './styles.css'
 
 import whiteCart from '../../../../assets/images/whitecart.svg'
+import { addToCart } from '../../../nav-bar/components/cart/store/actions'
 
 class ProductComponent extends React.Component {
   render() {
-    const { productId, product, currency, currencyName } = this.props
-    const { name, prices, photoes, inStock } = product
+    const { productId, product, currency, currencyName, addToCart } = this.props
+    const { name, prices, photoes, inStock, attributes } = product
     const photo = photoes[0]
     return (
       <li className={'list-product ' + (inStock ? '' : 'out-of-stock')}>
-        <img src={photo} alt="prod" />
-        {!inStock && <div className="stock-descr">out of stock</div>}
-        <div className="name-price-container">
-          <div>{name}</div>
-          <div className="product-price">
-            {currency}
-            {prices[currencyName]}
+        <Link to={'products/' + productId}>
+          <img className="main-image" src={photo} alt="prod" />
+          {!inStock && <div className="stock-descr">out of stock</div>}
+          <div className="name-price-container">
+            <div>{name}</div>
+            <div className="product-price">
+              {currency}
+              {prices[currencyName]}
+            </div>
           </div>
-        </div>
-        <div className="hidden-cart-symbol">
-          <Link to={'products/' + productId}>
+        </Link>
+        {attributes.length === 0 && inStock && (
+          <div
+            className="hidden-cart-symbol"
+            onClick={() => {
+              addToCart({ ...product, ownAttributes: [] })
+            }}
+          >
             <img src={whiteCart} alt="cart"></img>
-          </Link>
-        </div>
+          </div>
+        )}
       </li>
     )
   }
@@ -41,4 +49,13 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export const Product = connect(mapStateToProps)(ProductComponent)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToCart: (product) => dispatch(addToCart(product)),
+  }
+}
+
+export const Product = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductComponent)

@@ -44,6 +44,7 @@ class CartItemComponent extends Component {
       decreaseProductCount,
       deleteProduct,
     } = this.props
+    const { currentPhoto } = this.state
     const { photoes, name, count, attributes, prices, ownAttributes } = product
     return (
       <li className="cartpage-item">
@@ -90,14 +91,23 @@ class CartItemComponent extends Component {
             </button>
           </div>
           <div className="cartitem-photo">
-            <img src={photoes[this.state.currentPhoto]} alt="cart product" />
+            <div
+              className="cartphoto-frame"
+              style={{
+                transform: `translate(${-141 * currentPhoto}px, 0)`,
+              }}
+            >
+              {photoes.map((photo) => (
+                <img key={photo} src={photo} alt="cart product" />
+              ))}
+            </div>
           </div>
           <div className="prev-next-photoes">
             <div onClick={() => this.prevPhoto()}>
-              <img src={arrowLeft} alt="prev" />
+              <img className="shadow-photo" src={arrowLeft} alt="prev" />
             </div>
             <div onClick={() => this.nextPhoto()}>
-              <img src={arrowRight} alt="next" />
+              <img className="shadow-photo" src={arrowRight} alt="next" />
             </div>
           </div>
         </div>

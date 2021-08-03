@@ -65,6 +65,7 @@ const formatData = (data) => {
             {
               key: attribute.id,
               value: attribute.items.map((item) => item.value),
+              type: attribute.type,
             },
           ],
           []
