@@ -1,10 +1,13 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import { Component } from 'react'
+import { connect, ConnectedProps } from 'react-redux'
 import './styles.css'
 
 import { Product } from '../product'
+import { RootState } from '../../../../store/types'
 
-class ProductsListComponent extends React.Component {
+type Props = PropsFromRedux
+
+class ProductsListComponent extends Component<Props> {
   render() {
     const { productIds } = this.props
     return (
@@ -17,11 +20,14 @@ class ProductsListComponent extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: RootState) => {
   const { productIds } = state.products
   return {
     productIds,
   }
 }
 
-export const ProductsList = connect(mapStateToProps)(ProductsListComponent)
+const connector = connect(mapStateToProps)
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export const ProductsList = connector(ProductsListComponent)

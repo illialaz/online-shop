@@ -1,11 +1,13 @@
 import { gql } from '@apollo/client'
+import { Dispatch } from 'redux'
 
 import { apolloClient } from '../../services/apollo-client'
+import { Attribute, Categories, Product } from '../../types'
 
 import { SET_PRODUCTS, LOADING } from './types'
 
-export const fetchProducts = (category) => {
-  const title = category === 'all' ? '' : category
+export const fetchProducts = (category: Categories) => {
+  const title = category === Categories.all ? '' : category
 
   const GET_PRODUCTS = gql`
     query GetProducts($title: String!) {
@@ -35,32 +37,64 @@ export const fetchProducts = (category) => {
     }
   `
 
-  return (dispatch) => {
+  return (dispatch: Dispatch) => {
     dispatch(isLoading())
     apolloClient
       .query({
         query: GET_PRODUCTS,
         variables: { title },
       })
-      .then((data) => {
+      .then(({ data }) => {
         const { products, productIds } = formatData(data)
         dispatch(setProducts({ products, productIds }))
       })
   }
 }
 
-const formatData = (data) => {
-  const { products } = data.data.category
+type ApiAttribute = {
+  id: string
+  name: string
+  type: string
+  items: {
+    displayValue: string
+    value: string
+    id: string
+  }[]
+}
+
+type ApiProduct = {
+  id: string
+  name: string
+  inStock: boolean
+  gallery: string[]
+  description: string
+  prices: {
+    currency: string
+    amount: number
+  }[]
+  attributes: ApiAttribute[]
+}
+
+type ApiCategory = {
+  products: ApiProduct[]
+}
+
+type ApiGetProductsResponse = {
+  category: ApiCategory
+}
+
+const formatData = (response: ApiGetProductsResponse) => {
+  const { category } = response
+  const { products } = category
   const productIds = products.map((product) => product.id)
-  const formatedProducts = products.reduce(
-    (acc, product) => ({
-      ...acc,
-      [product.id]: {
-        name: product.name,
-        description: product.description,
-        inStock: product.inStock,
-        photoes: product.gallery,
-        attributes: product.attributes.reduce(
+  const formatedProducts = products.reduce<Record<string, Product>>(
+    (acc, apiProduct) => {
+      const product: Product = {
+        name: apiProduct.name,
+        description: apiProduct.description,
+        inStock: apiProduct.inStock,
+        photoes: apiProduct.gallery,
+        attributes: apiProduct.attributes.reduce<Attribute[]>(
           (acc, attribute) => [
             ...acc,
             {
@@ -71,22 +105,33 @@ const formatData = (data) => {
           ],
           []
         ),
-        prices: product.prices.reduce(
+        prices: apiProduct.prices.reduce(
           (acc, price) => ({ ...acc, [price.currency]: price.amount }),
           {}
         ),
-      },
-    }),
+      }
+
+      return {
+        ...acc,
+        [apiProduct.id]: product,
+      }
+    },
     {}
   )
+
   return {
     productIds,
     products: formatedProducts,
   }
 }
 
-export const setProducts = (data) => {
-  const { products, productIds } = data
+export const setProducts = ({
+  products,
+  productIds,
+}: {
+  products: Record<string, Product>
+  productIds: string[]
+}) => {
   return {
     type: SET_PRODUCTS,
     products,
@@ -99,3 +144,9 @@ export const isLoading = () => {
     type: LOADING,
   }
 }
+
+export type SetProductsAction = ReturnType<typeof setProducts>
+
+export type IsLoadingAction = ReturnType<typeof isLoading>
+
+export type ProductsActions = SetProductsAction | IsLoadingAction

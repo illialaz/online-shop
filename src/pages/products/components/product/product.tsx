@@ -1,12 +1,21 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import { Component } from 'react'
+import { connect, ConnectedProps } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { Dispatch } from 'redux'
 import './styles.css'
 
 import whiteCart from '../../../../assets/images/whitecart.svg'
 import { addToCart } from '../../../../store/actions'
+import { RootState } from '../../../../store/types'
+import { CartItem } from '../../../../types'
 
-class ProductComponent extends React.Component {
+type OwnProps = {
+  productId: string
+}
+
+type Props = PropsFromRedux & OwnProps
+
+class ProductComponent extends Component<Props> {
   render() {
     const { productId, product, currency, currencyName, addToCart } = this.props
     const { name, prices, photoes, inStock, attributes } = product
@@ -28,7 +37,7 @@ class ProductComponent extends React.Component {
           <div
             className="hidden-cart-symbol"
             onClick={() => {
-              addToCart({ ...product, ownAttributes: [] })
+              addToCart({ ...product, ownAttributes: {}, count: 1 })
             }}
           >
             <img src={whiteCart} alt="add to cart"></img>
@@ -39,7 +48,7 @@ class ProductComponent extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: RootState, ownProps: OwnProps) => {
   const { products } = state.products
   const { currency, currencyList } = state.currency
   return {
@@ -49,11 +58,14 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    addToCart: (product) => dispatch(addToCart(product)),
+    addToCart: (product: CartItem) => dispatch(addToCart(product)),
   }
 }
+
+const connector = connect(mapStateToProps, mapDispatchToProps)
+type PropsFromRedux = ConnectedProps<typeof connector>
 
 export const Product = connect(
   mapStateToProps,

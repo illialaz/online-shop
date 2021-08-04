@@ -1,9 +1,10 @@
 import { gql } from '@apollo/client'
+import { Dispatch } from 'redux'
 import { apolloClient } from '../../services/apollo-client'
 
 import { CHANGE_CURRENCY, SET_CURRENCY } from './types'
 
-const currencySymbols = {
+const currencySymbols: Record<string, string> = {
   USD: '$',
   GBP: '£',
   AUD: 'A$',
@@ -11,16 +12,17 @@ const currencySymbols = {
   RUB: '₽',
 }
 
-export const changeCurrency = (currency) => {
+export const changeCurrency = (currency: string) => {
   return {
     type: CHANGE_CURRENCY,
     currency,
   }
 }
 
-const formatData = (data) => {
-  const { currencies } = data.data
-  const currencyList = currencies.reduce(
+const formatData = ({ currencies }: { currencies: string[] }) => {
+  const currencyList = currencies.reduce<
+    Record<string, { short: string; long: string }>
+  >(
     (acc, currency) => ({
       ...acc,
       [currency]: {
@@ -30,6 +32,7 @@ const formatData = (data) => {
     }),
     {}
   )
+
   return {
     currencyList,
     currencyNames: currencies,
@@ -43,23 +46,33 @@ export const fetchCurrency = () => {
     }
   `
 
-  return (dispatch) => {
+  return (dispatch: Dispatch) => {
     apolloClient
       .query({
         query: GET_CURRENCY,
       })
-      .then((data) => {
+      .then(({ data }) => {
         const { currencyNames, currencyList } = formatData(data)
         dispatch(setCurrency({ currencyList, currencyNames }))
       })
   }
 }
 
-export const setCurrency = (data) => {
-  const { currencyNames, currencyList } = data
+export const setCurrency = ({
+  currencyNames,
+  currencyList,
+}: {
+  currencyNames: string[]
+  currencyList: Record<string, { short: string; long: string }>
+}) => {
   return {
     type: SET_CURRENCY,
     currencyNames,
     currencyList,
   }
 }
+
+export type ChangeCurrencyType = ReturnType<typeof changeCurrency>
+export type SetCurrencyType = ReturnType<typeof setCurrency>
+
+export type CurrencyActions = ChangeCurrencyType | SetCurrencyType

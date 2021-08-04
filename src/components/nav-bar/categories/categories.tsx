@@ -1,27 +1,42 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { Component } from 'react'
+import { connect, ConnectedProps } from 'react-redux'
 import './styles.css'
 
-import { all, tech, clothes } from './constants'
 import { Category } from '../category'
+import { Categories as CategoryType } from '../../../types'
+import { RootState } from '../../../store/types'
 
-export class CategoriesComponent extends Component {
+type Props = PropsFromRedux
+
+export class CategoriesComponent extends Component<Props> {
   render = () => {
     const { activeCategory } = this.props
     return (
       <ul className="categories">
-        <Category category={all} active={activeCategory === all} />
-        <Category category={clothes} active={activeCategory === clothes} />
-        <Category category={tech} active={activeCategory === tech} />
+        <Category
+          category={CategoryType.all}
+          active={activeCategory === CategoryType.all}
+        />
+        <Category
+          category={CategoryType.clothes}
+          active={activeCategory === CategoryType.clothes}
+        />
+        <Category
+          category={CategoryType.tech}
+          active={activeCategory === CategoryType.tech}
+        />
       </ul>
     )
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: RootState) => {
   return {
     activeCategory: state.categories.activeCategory,
   }
 }
 
-export const Categories = connect(mapStateToProps)(CategoriesComponent)
+const connector = connect(mapStateToProps)
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export const Categories = connector(CategoriesComponent)

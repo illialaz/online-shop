@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { Component } from 'react'
+import { connect, ConnectedProps } from 'react-redux'
+import { Dispatch } from 'redux'
 import './styles.css'
 
 import plus from '../../../../assets/images/bigplus.svg'
@@ -12,8 +13,19 @@ import {
   deleteProduct,
 } from '../../../../store/actions'
 import { Selector } from '../selector'
+import { RootState } from '../../../../store/types'
 
-class CartItemComponent extends Component {
+type OwnProps = {
+  cartId: number
+}
+
+type Props = PropsFromRedux & OwnProps
+
+type State = {
+  currentPhoto: number
+}
+
+class CartItemComponent extends Component<Props, State> {
   state = {
     currentPhoto: 0,
   }
@@ -116,7 +128,7 @@ class CartItemComponent extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: RootState, ownProps: OwnProps) => {
   const { currency, currencyList } = state.currency
   const { cart } = state.cart
   return {
@@ -126,15 +138,17 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    increaseProductCount: (cartId) => dispatch(increaseProductCount(cartId)),
-    decreaseProductCount: (cartId) => dispatch(decreaseProductCount(cartId)),
-    deleteProduct: (cartId) => dispatch(deleteProduct(cartId)),
+    increaseProductCount: (cartId: number) =>
+      dispatch(increaseProductCount(cartId)),
+    decreaseProductCount: (cartId: number) =>
+      dispatch(decreaseProductCount(cartId)),
+    deleteProduct: (cartId: number) => dispatch(deleteProduct(cartId)),
   }
 }
 
-export const CartItem = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CartItemComponent)
+const connector = connect(mapStateToProps, mapDispatchToProps)
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export const CartItem = connector(CartItemComponent)

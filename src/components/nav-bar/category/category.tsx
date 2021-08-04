@@ -1,10 +1,17 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { Component } from 'react'
+import { Dispatch } from 'redux'
+import { connect, ConnectedProps } from 'react-redux'
 import './styles.css'
 
 import { changeCategory, fetchProducts } from '../../../store/actions'
+import { Categories } from '../../../types'
 
-export default class CategoryComponent extends Component {
+type Props = PropsFromRedux & {
+  active: boolean
+  category: Categories
+}
+
+export default class CategoryComponent extends Component<Props> {
   render() {
     const { changeCategory, fetchProducts, category, active } = this.props
     return (
@@ -23,11 +30,16 @@ export default class CategoryComponent extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    changeCategory: (category) => dispatch(changeCategory(category)),
-    fetchProducts: (category) => dispatch(fetchProducts(category)),
+    changeCategory: (category: Categories) =>
+      dispatch(changeCategory(category)),
+    fetchProducts: (category: Categories) =>
+      dispatch(fetchProducts(category) as any),
   }
 }
 
-export const Category = connect(null, mapDispatchToProps)(CategoryComponent)
+const connector = connect(null, mapDispatchToProps)
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export const Category = connector(CategoryComponent)

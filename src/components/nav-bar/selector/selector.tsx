@@ -1,10 +1,18 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { Component } from 'react'
+import { connect, ConnectedProps } from 'react-redux'
+import { Dispatch } from 'redux'
 import './styles.css'
 
 import { changeAttribute } from '../../../store/actions'
+import { Attribute } from '../../../types'
 
-class SelectorComponent extends Component {
+type Props = PropsFromRedux & {
+  attributes: Attribute
+  selector: string
+  cartId: number
+}
+
+class SelectorComponent extends Component<Props> {
   render() {
     const { attributes, selector, changeAttribute, cartId } = this.props
     const attrValues = attributes.value
@@ -26,8 +34,10 @@ class SelectorComponent extends Component {
                   onClick={() =>
                     attribute !== selector &&
                     changeAttribute({
-                      name: attrName,
-                      value: attribute,
+                      newAttribute: {
+                        name: attrName,
+                        value: attribute,
+                      },
                       cartId,
                     })
                   }
@@ -43,10 +53,16 @@ class SelectorComponent extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    changeAttribute: (attribute) => dispatch(changeAttribute(attribute)),
+    changeAttribute: (attribute: {
+      newAttribute: { name: string; value: string }
+      cartId: number
+    }) => dispatch(changeAttribute(attribute)),
   }
 }
 
-export const Selector = connect(null, mapDispatchToProps)(SelectorComponent)
+const connector = connect(null, mapDispatchToProps)
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export const Selector = connector(SelectorComponent)

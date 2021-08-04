@@ -1,11 +1,20 @@
 import { HANDLE_SHOW_CART, HANDLE_SHOW_CURRENCY } from './types'
+import { CurrencyCartActions } from './actions'
 
-const initialState = {
+type CurrencyCartState = {
+  showCurrencyList: boolean
+  showCartList: boolean
+}
+
+const initialState: CurrencyCartState = {
   showCurrencyList: false,
   showCartList: false,
 }
 
-export const reducer = (state = initialState, action) => {
+export const reducer = (
+  state = initialState,
+  action: CurrencyCartActions
+): CurrencyCartState => {
   switch (action.type) {
     case HANDLE_SHOW_CART:
       return {

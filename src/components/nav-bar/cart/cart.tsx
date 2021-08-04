@@ -1,13 +1,17 @@
-import './styles.css'
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { Component } from 'react'
+import { connect, ConnectedProps } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { Dispatch } from 'redux'
+import './styles.css'
 
 import cartLogo from '../../../assets/images/cart.svg'
 import { handleShowCart } from '../../../store/actions'
 import { CartItem } from '../cart-item'
+import { RootState } from '../../../store/types'
 
-class CartComponent extends Component {
+type Props = PropsFromRedux
+
+class CartComponent extends Component<Props> {
   render = () => {
     const {
       cart,
@@ -75,7 +79,7 @@ class CartComponent extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: RootState) => {
   const { cart, cartIds } = state.cart
   const { showCartList } = state.currencyCart
   const { currency, currencyList } = state.currency
@@ -88,10 +92,13 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     handleShowCart: () => dispatch(handleShowCart()),
   }
 }
 
-export const Cart = connect(mapStateToProps, mapDispatchToProps)(CartComponent)
+const connector = connect(mapStateToProps, mapDispatchToProps)
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export const Cart = connector(CartComponent)

@@ -1,26 +1,38 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { Component } from 'react'
+import { connect, ConnectedProps } from 'react-redux'
+import { Dispatch } from 'redux'
 import parse from 'html-react-parser'
 import './styles.css'
 
 import { addToCart } from '../../store/actions'
+import { RootState } from '../../store/types'
+import { CartItem } from '../../types'
 
-class ProductComponent extends Component {
-  state = {
+type Props = PropsFromRedux
+
+type State = {
+  activeImage: number
+  ownAttributes: Record<string, string>
+  attrNames: string[]
+}
+
+class ProductComponent extends Component<Props, State> {
+  state: State = {
     activeImage: 0,
     ownAttributes: {},
     attrNames: [],
   }
 
-  changePhoto = (photo) => {
+  changePhoto = (photo: number) => {
     this.setState({ activeImage: photo })
   }
 
-  changeAttribute = (attribute) => {
+  changeAttribute = (attribute: { key: string; value: string }) => {
     const { key, value } = attribute
+    const uniqueAttrNames = new Set([...this.state.attrNames, key])
     this.setState({
       ownAttributes: { ...this.state.ownAttributes, [key]: value },
-      attrNames: [...new Set([...this.state.attrNames, key])],
+      attrNames: [...uniqueAttrNames],
     })
   }
 
@@ -98,7 +110,7 @@ class ProductComponent extends Component {
               className="product-button"
               onClick={() => {
                 if (attrNames.length === attributes.length)
-                  addToCart({ ...product, ownAttributes })
+                  addToCart({ ...product, ownAttributes, count: 1 })
               }}
             >
               add to cart
@@ -111,7 +123,7 @@ class ProductComponent extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: RootState, ownProps: any) => {
   const { products } = state.products
   const { currency, currencyList } = state.currency
   const product = products[ownProps.match.params.id]
@@ -122,13 +134,13 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    addToCart: (product) => dispatch(addToCart(product)),
+    addToCart: (product: CartItem) => dispatch(addToCart(product)),
   }
 }
 
-export const Product = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProductComponent)
+const connector = connect(mapStateToProps, mapDispatchToProps)
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export const Product = connector(ProductComponent)

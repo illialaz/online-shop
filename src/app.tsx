@@ -5,15 +5,20 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { connect, ConnectedProps } from 'react-redux'
+import { Dispatch } from 'redux'
 
 import { fetchProducts, fetchCurrency } from './store/actions'
 import { Cart, Product, Products } from './pages'
 import { NavBar } from './components/nav-bar'
 import { ScrollToTop } from './components/scroll-to-top'
 import './styles.css'
+import { Categories } from './types'
+import { RootState } from './store/types'
 
-class AppComponent extends React.Component {
+type Props = PropsFromRedux
+
+class AppComponent extends React.Component<Props> {
   componentDidMount() {
     const { fetchCurrency, fetchProducts } = this.props
     fetchProducts()
@@ -42,18 +47,21 @@ class AppComponent extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: RootState) => {
   const { showCartList } = state.currencyCart
   return {
     showCartList,
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    fetchProducts: () => dispatch(fetchProducts('all')),
-    fetchCurrency: () => dispatch(fetchCurrency()),
+    fetchProducts: () => dispatch(fetchProducts(Categories.all) as any),
+    fetchCurrency: () => dispatch(fetchCurrency() as any),
   }
 }
+
+const connector = connect(mapStateToProps, mapDispatchToProps)
+type PropsFromRedux = ConnectedProps<typeof connector>
 
 export const App = connect(mapStateToProps, mapDispatchToProps)(AppComponent)

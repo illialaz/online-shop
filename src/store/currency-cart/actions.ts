@@ -11,3 +11,8 @@ export const handleShowCurrency = () => {
     type: HANDLE_SHOW_CURRENCY,
   }
 }
+
+export type HandleShowCartType = ReturnType<typeof handleShowCart>
+export type HandleShowCurrencyType = ReturnType<typeof handleShowCurrency>
+
+export type CurrencyCartActions = HandleShowCartType | HandleShowCurrencyType

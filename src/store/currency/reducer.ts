@@ -1,6 +1,13 @@
+import { ChangeCurrencyType, CurrencyActions, SetCurrencyType } from './actions'
 import { CHANGE_CURRENCY, SET_CURRENCY } from './types'
 
-const initialState = {
+type CurrencyState = {
+  currency: string
+  currencyList: Record<string, { short: string; long: string }>
+  currencyNames: string[]
+}
+
+const initialState: CurrencyState = {
   currency: 'USD',
   currencyList: {
     USD: {
@@ -11,12 +18,16 @@ const initialState = {
   currencyNames: ['USD'],
 }
 
-export const reducer = (state = initialState, action) => {
+export const reducer = (
+  state = initialState,
+  action: CurrencyActions
+): CurrencyState => {
   switch (action.type) {
     case CHANGE_CURRENCY:
-      return { ...state, currency: action.currency }
+      const { currency } = action as ChangeCurrencyType
+      return { ...state, currency }
     case SET_CURRENCY: {
-      const { currencyList, currencyNames } = action
+      const { currencyList, currencyNames } = action as SetCurrencyType
       return {
         ...state,
         currencyList,

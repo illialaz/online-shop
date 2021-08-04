@@ -1,12 +1,16 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { Component } from 'react'
+import { connect, ConnectedProps } from 'react-redux'
+import { Dispatch } from 'redux'
 import './styles.css'
 
 import arrowDown from '../../../assets/images/arrowDown.svg'
 import arrowUp from '../../../assets/images/arrowUp.svg'
 import { changeCurrency, handleShowCurrency } from '../../../store/actions'
+import { RootState } from '../../../store/types'
 
-class CurrencyComponent extends Component {
+type Props = PropsFromRedux
+
+class CurrencyComponent extends Component<Props> {
   render = () => {
     const {
       currency,
@@ -42,7 +46,7 @@ class CurrencyComponent extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: RootState) => {
   const { currency, currencyList, currencyNames } = state.currency
   const { showCurrencyList } = state.currencyCart
   return {
@@ -53,14 +57,14 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    changeCurrency: (currency) => dispatch(changeCurrency(currency)),
+    changeCurrency: (currency: string) => dispatch(changeCurrency(currency)),
     handleShowCurrency: () => dispatch(handleShowCurrency()),
   }
 }
 
-export const Currency = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CurrencyComponent)
+const connector = connect(mapStateToProps, mapDispatchToProps)
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export const Currency = connector(CurrencyComponent)

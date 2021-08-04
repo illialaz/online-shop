@@ -1,3 +1,5 @@
+import { CartItem } from '../../types'
+import { AddToCartType, CartActions, ChangeAttributeType } from './actions'
 import {
   CHANGE_ATTRIBUTE,
   INCREASE_PRODUCT_COUNT,
@@ -6,32 +8,42 @@ import {
   ADD_TO_CART,
 } from './types'
 
-const initialState = {
+type CartState = {
+  newId: number
+  cartIds: number[]
+  cart: Record<number, CartItem>
+}
+
+const initialState: CartState = {
   newId: 1,
   cartIds: [],
   cart: {},
 }
 
-export const reducer = (state = initialState, action) => {
-  const { cart, cartIds } = state
+export const reducer = (
+  state = initialState,
+  action: CartActions
+): CartState => {
+  const cartId = (action as ChangeAttributeType)?.cartId || 0
 
   switch (action.type) {
     case DELETE_PRODUCT:
-      const tempCart = { ...cart }
-      delete tempCart[action.cartId]
       return {
         ...state,
-        cart: tempCart,
-        cartIds: cartIds.filter((value) => value !== action.cartId),
+        cart: {
+          ...state.cart,
+          [cartId]: undefined as CartItem,
+        },
+        cartIds: state.cartIds.filter((value) => value !== cartId),
       }
     case INCREASE_PRODUCT_COUNT:
       return {
         ...state,
         cart: {
-          ...cart,
-          [action.cartId]: {
-            ...cart[action.cartId],
-            count: cart[action.cartId].count + 1,
+          ...state.cart,
+          [cartId]: {
+            ...state.cart[cartId],
+            count: state.cart[cartId].count + 1,
           },
         },
       }
@@ -39,23 +51,24 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         cart: {
-          ...cart,
-          [action.cartId]: {
-            ...cart[action.cartId],
-            count: cart[action.cartId].count - 1,
+          ...state.cart,
+          [cartId]: {
+            ...state.cart[cartId],
+            count: state.cart[cartId].count - 1,
           },
         },
       }
     case CHANGE_ATTRIBUTE:
-      const { name, value, cartId } = action.newAttribute
+      const { newAttribute } = action as ChangeAttributeType
+      const { name, value } = newAttribute
       return {
         ...state,
         cart: {
-          ...cart,
+          ...state.cart,
           [cartId]: {
-            ...cart[cartId],
+            ...state.cart[cartId],
             ownAttributes: {
-              ...cart[cartId].ownAttributes,
+              ...state.cart[cartId].ownAttributes,
               [name]: value,
             },
           },
@@ -63,27 +76,14 @@ export const reducer = (state = initialState, action) => {
       }
 
     case ADD_TO_CART:
-      const {
-        name: productName,
-        prices,
-        photoes,
-        attributes,
-        ownAttributes,
-      } = action.product
+      const { product } = action as AddToCartType
       return {
         ...state,
         cart: {
-          ...cart,
-          [state.newId]: {
-            name: productName,
-            prices,
-            photoes,
-            attributes,
-            ownAttributes,
-            count: 1,
-          },
+          ...state.cart,
+          [state.newId]: product,
         },
-        cartIds: [...cartIds, state.newId],
+        cartIds: [...state.cartIds, state.newId],
         newId: state.newId + 1,
       }
 

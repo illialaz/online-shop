@@ -1,10 +1,13 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { Component } from 'react'
+import { connect, ConnectedProps } from 'react-redux'
 import './styles.css'
 
 import { CartItem } from '../cart-item'
+import { RootState } from '../../../../store/types'
 
-class CartListComponent extends Component {
+type Props = PropsFromRedux
+
+class CartListComponent extends Component<Props> {
   render() {
     const { cartIds } = this.props
     return (
@@ -17,11 +20,14 @@ class CartListComponent extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: RootState) => {
   const { cartIds } = state.cart
   return {
     cartIds,
   }
 }
 
-export const CartList = connect(mapStateToProps)(CartListComponent)
+const connector = connect(mapStateToProps)
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export const CartList = connector(CartListComponent)

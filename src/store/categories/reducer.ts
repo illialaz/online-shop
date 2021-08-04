@@ -1,10 +1,19 @@
+import { Categories } from '../../types'
+import { ChangeCategoryType } from './actions'
 import { CHANGE_CATEGORY } from './types'
 
-const initialState = {
-  activeCategory: 'all',
+type CategoriesState = {
+  activeCategory: Categories
 }
 
-export const reducer = (state = initialState, action) => {
+const initialState: CategoriesState = {
+  activeCategory: Categories.all,
+}
+
+export const reducer = (
+  state = initialState,
+  action: ChangeCategoryType
+): CategoriesState => {
   switch (action.type) {
     case CHANGE_CATEGORY:
       return { ...state, activeCategory: action.category }
