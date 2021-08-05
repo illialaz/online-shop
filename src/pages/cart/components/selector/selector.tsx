@@ -4,51 +4,42 @@ import { Dispatch } from 'redux'
 import './styles.css'
 
 import { changeAttribute } from '../../../../store/actions'
-import { Attribute } from '../../../../types'
 
 type Props = PropsFromRedux & {
-  attributes: Attribute
-  ownAttribute: string
+  attribute: string
+  selected: boolean
   cartId: number
+  type: string
+  name: string
 }
 
 class SelectorComponent extends Component<Props> {
+  handleSelectorClick = () => {
+    const { attribute, cartId, name, changeAttribute } = this.props
+    changeAttribute({
+      newAttribute: {
+        name: name,
+        value: attribute,
+      },
+      cartId,
+    })
+  }
+
   render() {
-    const { attributes, ownAttribute, changeAttribute, cartId } = this.props
+    const { attribute, selected, type } = this.props
+
     return (
-      <div className="cartitem-selector">
-        <div className="cartitem-attrname">{attributes.key}</div>
-        <div className="cartitem-attribute">
-          {attributes.value.map((attribute) => {
-            return (
-              <div
-                className={attribute === ownAttribute ? 'selected' : ''}
-                key={attribute}
-              >
-                <button
-                  type="button"
-                  className={
-                    'attrselector-button ' +
-                    (attributes.type === 'swatch' ? 'colorised' : '')
-                  }
-                  style={{ backgroundColor: attribute }}
-                  onClick={() =>
-                    attribute !== ownAttribute &&
-                    changeAttribute({
-                      newAttribute: {
-                        name: attributes.key,
-                        value: attribute,
-                      },
-                      cartId,
-                    })
-                  }
-                >
-                  {attributes.type !== 'swatch' && attribute}
-                </button>
-              </div>
-            )
-          })}
-        </div>
+      <div className={'cartitem-selector ' + (selected ? 'selected' : '')}>
+        <button
+          type="button"
+          className={
+            'attrselector-button ' + (type === 'swatch' ? 'colorised' : '')
+          }
+          style={{ backgroundColor: attribute }}
+          onClick={this.handleSelectorClick}
+        >
+          {type !== 'swatch' && attribute}
+        </button>
       </div>
     )
   }

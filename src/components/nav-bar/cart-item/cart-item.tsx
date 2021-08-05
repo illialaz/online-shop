@@ -10,8 +10,8 @@ import {
 } from '../../../store/actions'
 import plus from '../../../assets/images/plus.svg'
 import minus from '../../../assets/images/minus.svg'
-import { Selector } from '../selector'
 import { RootState } from '../../../store/types'
+import { Attribute } from '../attribute'
 
 type OwnProps = {
   cartId: number
@@ -20,18 +20,22 @@ type OwnProps = {
 type Props = PropsFromRedux & OwnProps
 
 class CartItemComponent extends Component<Props> {
+  handleIncreaseButtonClick = () => {
+    const { cartId, increaseProductCount } = this.props
+    increaseProductCount(cartId)
+  }
+
+  handleDecreaseButtonClick = () => {
+    const { product, cartId, deleteProduct, decreaseProductCount } = this.props
+    const { count } = product
+    count === 1 ? deleteProduct(cartId) : decreaseProductCount(cartId)
+  }
+
   render = () => {
-    const {
-      product,
-      currency,
-      increaseProductCount,
-      decreaseProductCount,
-      deleteProduct,
-      cartId,
-      currencyName,
-    } = this.props
+    const { product, currency, cartId, currencyName } = this.props
     const { name, prices, count, photoes, attributes, ownAttributes } = product
     const photo = photoes[0]
+
     return (
       <div className="cart-item">
         <div className="description">
@@ -42,8 +46,8 @@ class CartItemComponent extends Component<Props> {
           </div>
           <div className="selectors">
             {attributes.map((item) => (
-              <Selector
-                attributes={item}
+              <Attribute
+                selectors={item}
                 selector={ownAttributes[item.key]}
                 cartId={cartId}
                 key={item.key}
@@ -55,9 +59,7 @@ class CartItemComponent extends Component<Props> {
           <button
             type="button"
             className="count-button"
-            onClick={() => {
-              increaseProductCount(cartId)
-            }}
+            onClick={this.handleIncreaseButtonClick}
           >
             <img src={plus} alt="plus" />
           </button>
@@ -65,9 +67,7 @@ class CartItemComponent extends Component<Props> {
           <button
             type="button"
             className="count-button"
-            onClick={() => {
-              count === 1 ? deleteProduct(cartId) : decreaseProductCount(cartId)
-            }}
+            onClick={this.handleDecreaseButtonClick}
           >
             <img src={minus} alt="minus" />
           </button>

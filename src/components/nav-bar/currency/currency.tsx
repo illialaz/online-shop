@@ -1,33 +1,29 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch } from 'redux'
 import './styles.css'
 
 import arrowDown from '../../../assets/images/arrowDown.svg'
 import arrowUp from '../../../assets/images/arrowUp.svg'
-import { changeCurrency, handleShowCurrency } from '../../../store/actions'
+import { handleShowCurrency } from '../../../store/actions'
 import { RootState } from '../../../store/types'
+import { CurrencyItem } from '../currency-item'
 
 type Props = PropsFromRedux
 
 class CurrencyComponent extends Component<Props> {
+  handleCurrencyClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const { handleShowCurrency } = this.props
+    e.stopPropagation()
+    handleShowCurrency()
+  }
+
   render = () => {
-    const {
-      currency,
-      currencyList,
-      currencyNames,
-      showCurrencyList,
-      handleShowCurrency,
-      changeCurrency,
-    } = this.props
+    const { currency, currencyList, currencyNames, showCurrencyList } =
+      this.props
+
     return (
-      <div
-        className="currency"
-        onClick={(e) => {
-          e.stopPropagation()
-          handleShowCurrency()
-        }}
-      >
+      <div className="currency" onClick={this.handleCurrencyClick}>
         <div className="currency-symbol">{currencyList[currency].short}</div>
         <img
           className="currency-arrow"
@@ -37,13 +33,7 @@ class CurrencyComponent extends Component<Props> {
         {showCurrencyList && (
           <div className="currency-list">
             {currencyNames.map((name) => (
-              <div
-                className="currency-list-item"
-                key={name}
-                onClick={() => changeCurrency(name)}
-              >
-                {currencyList[name].long}
-              </div>
+              <CurrencyItem name={name} key={name} />
             ))}
           </div>
         )}
@@ -65,7 +55,6 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    changeCurrency: (currency: string) => dispatch(changeCurrency(currency)),
     handleShowCurrency: () => dispatch(handleShowCurrency()),
   }
 }

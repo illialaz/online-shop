@@ -16,13 +16,19 @@ type OwnProps = {
 type Props = PropsFromRedux & OwnProps
 
 class ProductComponent extends Component<Props> {
+  handleAddToCart = () => {
+    const { product } = this.props
+    addToCart({ ...product, ownAttributes: {}, count: 1 })
+  }
+
   render() {
-    const { productId, product, currency, currencyName, addToCart } = this.props
+    const { productId, product, currency, currencyName } = this.props
     const { name, prices, photoes, inStock, attributes } = product
     const photo = photoes[0]
+
     return (
       <div className={'list-product ' + (inStock ? '' : 'out-of-stock')}>
-        <Link to={'products/' + productId}>
+        <Link to={'/product/' + productId}>
           <img className="main-image" src={photo} alt="product" />
           {!inStock && <div className="stock-descr">out of stock</div>}
           <div className="name-price-container">
@@ -34,12 +40,7 @@ class ProductComponent extends Component<Props> {
           </div>
         </Link>
         {attributes.length === 0 && inStock && (
-          <div
-            className="hidden-cart-symbol"
-            onClick={() => {
-              addToCart({ ...product, ownAttributes: {}, count: 1 })
-            }}
-          >
+          <div className="hidden-cart-symbol" onClick={this.handleAddToCart}>
             <img src={whiteCart} alt="add to cart"></img>
           </div>
         )}

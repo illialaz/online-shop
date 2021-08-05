@@ -1,0 +1,12 @@
+.cart-attribute {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin: 20px 0 0 0;
+  text-transform: capitalize;
+}
+
+.cart-attribute .cart-selectors {
+  display: flex;
+  height: 24px;
+}

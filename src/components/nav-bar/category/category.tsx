@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import { Dispatch } from 'redux'
 import { connect, ConnectedProps } from 'react-redux'
+import { Link } from 'react-router-dom'
 import './styles.css'
 
 import { changeCategory, fetchProducts } from '../../../store/actions'
@@ -12,19 +13,24 @@ type Props = PropsFromRedux & {
 }
 
 export default class CategoryComponent extends Component<Props> {
+  handleCategoryClick = () => {
+    const { changeCategory, fetchProducts, category } = this.props
+    changeCategory(category)
+    fetchProducts(category)
+  }
+
   render() {
-    const { changeCategory, fetchProducts, category, active } = this.props
+    const { category, active } = this.props
+
     return (
       <div className={active ? 'active-category' : ''}>
-        <div
+        <Link
+          to={'/products/' + category}
           className="category"
-          onClick={() => {
-            changeCategory(category)
-            fetchProducts(category)
-          }}
+          onClick={this.handleCategoryClick}
         >
           {category}
-        </div>
+        </Link>
       </div>
     )
   }

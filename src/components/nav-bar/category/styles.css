@@ -1,6 +1,7 @@
 .category {
   margin: 30px 16px;
   cursor: pointer;
+  display: block;
 }
 
 .active-category {

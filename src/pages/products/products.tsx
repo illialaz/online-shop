@@ -10,6 +10,7 @@ type Props = PropsFromRedux
 class ProductsComponent extends Component<Props> {
   render() {
     const { loading, category } = this.props
+
     return (
       <div className="products-page">
         <div className="category-name">{category}</div>

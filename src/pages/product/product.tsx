@@ -23,11 +23,11 @@ class ProductComponent extends Component<Props, State> {
     attrNames: [],
   }
 
-  changePhoto = (photo: number) => {
+  changePhoto = (photo: number) => () => {
     this.setState({ activeImage: photo })
   }
 
-  changeAttribute = (attribute: { key: string; value: string }) => {
+  changeAttribute = (attribute: { key: string; value: string }) => () => {
     const { key, value } = attribute
     const uniqueAttrNames = new Set([...this.state.attrNames, key])
     this.setState({
@@ -36,11 +36,23 @@ class ProductComponent extends Component<Props, State> {
     })
   }
 
+  handleAddToCartClick = () => {
+    const { attrNames, ownAttributes } = this.state
+    const { product, addToCart } = this.props
+    const { attributes } = product
+    if (attrNames.length === attributes.length)
+      addToCart({ ...product, ownAttributes, count: 1 })
+  }
+
   render() {
-    const { product, currency, currencyName, addToCart } = this.props
-    if (!product) return <div className="loading">Loading...</div>
+    const { product, currency, currencyName } = this.props
+    const { ownAttributes } = this.state
+    if (!product) {
+      return <div className="loading">Loading...</div>
+    }
+
     const { photoes, prices, attributes, description, name, inStock } = product
-    const { ownAttributes, attrNames } = this.state
+
     return (
       <div className="product-page">
         <div className="photoes-container">
@@ -52,7 +64,7 @@ class ProductComponent extends Component<Props, State> {
                     className="product-photo"
                     src={photo}
                     alt="product"
-                    onClick={() => this.changePhoto(index)}
+                    onClick={this.changePhoto(index)}
                   />
                 </div>
               )
@@ -78,9 +90,10 @@ class ProductComponent extends Component<Props, State> {
                       <div
                         key={item}
                         className="product-attr-selector"
-                        onClick={() => {
-                          this.changeAttribute({ key: attr.key, value: item })
-                        }}
+                        onClick={this.changeAttribute({
+                          key: attr.key,
+                          value: item,
+                        })}
                       >
                         <button
                           type="button"
@@ -108,10 +121,7 @@ class ProductComponent extends Component<Props, State> {
           {inStock && (
             <button
               className="product-button"
-              onClick={() => {
-                if (attrNames.length === attributes.length)
-                  addToCart({ ...product, ownAttributes, count: 1 })
-              }}
+              onClick={this.handleAddToCartClick}
             >
               add to cart
             </button>

@@ -1,0 +1,11 @@
+.cartitem-attribute {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  text-transform: capitalize;
+}
+
+.cartitem-attribute .cartitem-selectors {
+  display: flex;
+  height: 45px;
+}

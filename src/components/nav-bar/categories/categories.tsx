@@ -11,6 +11,7 @@ type Props = PropsFromRedux
 export class CategoriesComponent extends Component<Props> {
   render = () => {
     const { activeCategory } = this.props
+
     return (
       <div className="categories">
         <Category

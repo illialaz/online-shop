@@ -45,15 +45,18 @@ class CartComponent extends Component<Props, State> {
     }
   }
 
+  handleCartClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const { handleShowCart } = this.props
+    e.stopPropagation()
+    handleShowCart()
+  }
+
+  handleCartListClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation()
+  }
+
   render = () => {
-    const {
-      cart,
-      showCartList,
-      currency,
-      currencyName,
-      handleShowCart,
-      cartIds,
-    } = this.props
+    const { cart, showCartList, currency, currencyName, cartIds } = this.props
 
     const total = cartIds.reduce(
       (total, id) => total + cart[id].prices[currencyName] * cart[id].count,
@@ -63,13 +66,7 @@ class CartComponent extends Component<Props, State> {
     const roundedTotal = total.toFixed(2)
 
     return (
-      <div
-        className="cart"
-        onClick={(e) => {
-          e.stopPropagation()
-          handleShowCart()
-        }}
-      >
+      <div className="cart" onClick={this.handleCartClick}>
         <div className="cart-symbol">
           <img src={cartLogo} alt="Cart" />
           {cartIds.length !== 0 && (
@@ -82,7 +79,7 @@ class CartComponent extends Component<Props, State> {
             <section
               className={'cart-list ' + (this.showScroll ? 'scroll' : '')}
               ref={this.cartList}
-              onClick={(e) => e.stopPropagation()}
+              onClick={this.handleCartListClick}
             >
               <div className="">
                 <span>My Bag</span>, {cartIds.length || 0} item

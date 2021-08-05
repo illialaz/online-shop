@@ -33,11 +33,11 @@ class AppComponent extends React.Component<Props> {
         <main className="main" onClick={hideCurrencyCart}>
           <NavBar />
           <Switch>
-            <Route exact path="/products" component={Products} />
-            <Route exact path="/products/:id" component={Product} />
+            <Route path="/products/:category" component={Products} />
+            <Route exact path="/product/:id" component={Product} />
             <Route exact path="/cart" component={Cart} />
             <Route path="*">
-              <Redirect to="/products" />
+              <Redirect to="/products/all" />
             </Route>
           </Switch>
           {showCartList && <div className="shadow"></div>}

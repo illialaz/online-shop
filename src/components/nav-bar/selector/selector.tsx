@@ -4,50 +4,40 @@ import { Dispatch } from 'redux'
 import './styles.css'
 
 import { changeAttribute } from '../../../store/actions'
-import { Attribute } from '../../../types'
 
 type Props = PropsFromRedux & {
-  attributes: Attribute
-  selector: string
+  attribute: string
+  selected: boolean
   cartId: number
+  type: string
+  name: string
 }
 
 class SelectorComponent extends Component<Props> {
+  handleSelectorClick = () => {
+    const { attribute, cartId, name, changeAttribute } = this.props
+    changeAttribute({
+      newAttribute: {
+        name: name,
+        value: attribute,
+      },
+      cartId,
+    })
+  }
+
   render() {
-    const { attributes, selector, changeAttribute, cartId } = this.props
-    const attrValues = attributes.value
-    const attrName = attributes.key
+    const { attribute, selected, type } = this.props
+
     return (
-      <div className="cart-selector">
-        <div>{attrName}</div>
-        <div className="cart-attribute">
-          {attrValues.map((attribute) => {
-            return (
-              <div
-                className={attribute === selector ? 'selected' : ''}
-                key={attribute}
-              >
-                <button
-                  type="button"
-                  className="selector-button"
-                  style={{ backgroundColor: attribute }}
-                  onClick={() =>
-                    attribute !== selector &&
-                    changeAttribute({
-                      newAttribute: {
-                        name: attrName,
-                        value: attribute,
-                      },
-                      cartId,
-                    })
-                  }
-                >
-                  {attributes.type !== 'swatch' && attribute}
-                </button>
-              </div>
-            )
-          })}
-        </div>
+      <div className={'cart-selector ' + (selected ? 'selected' : '')}>
+        <button
+          type="button"
+          className="selector-button"
+          style={{ backgroundColor: attribute }}
+          onClick={this.handleSelectorClick}
+        >
+          {type !== 'swatch' && attribute}
+        </button>
       </div>
     )
   }

@@ -10,6 +10,7 @@ type Props = PropsFromRedux
 class ProductsListComponent extends Component<Props> {
   render() {
     const { productIds } = this.props
+
     return (
       <div className="products-list">
         {productIds.map((id) => {

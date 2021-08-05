@@ -12,8 +12,8 @@ import {
   decreaseProductCount,
   deleteProduct,
 } from '../../../../store/actions'
-import { Selector } from '../selector'
 import { RootState } from '../../../../store/types'
+import { Attribute } from '../attribute'
 
 type OwnProps = {
   cartId: number
@@ -46,18 +46,22 @@ class CartItemComponent extends Component<Props, State> {
     })
   }
 
+  handleIncreaseButtonClick = () => {
+    const { cartId, increaseProductCount } = this.props
+    increaseProductCount(cartId)
+  }
+
+  handleDecreaseButtonClick = () => {
+    const { product, cartId, deleteProduct, decreaseProductCount } = this.props
+    const { count } = product
+    count === 1 ? deleteProduct(cartId) : decreaseProductCount(cartId)
+  }
+
   render() {
-    const {
-      cartId,
-      product,
-      currency,
-      currencyName,
-      increaseProductCount,
-      decreaseProductCount,
-      deleteProduct,
-    } = this.props
+    const { cartId, product, currency, currencyName } = this.props
     const { currentPhoto } = this.state
     const { photoes, name, count, attributes, prices, ownAttributes } = product
+
     return (
       <div className="cartpage-item">
         <div className="cartitem-descr">
@@ -68,9 +72,9 @@ class CartItemComponent extends Component<Props, State> {
 
           {attributes.map((item) => {
             return (
-              <Selector
-                attributes={item}
-                ownAttribute={ownAttributes[item.key]}
+              <Attribute
+                selectors={item}
+                selector={ownAttributes[item.key]}
                 cartId={cartId}
                 key={item.key}
               />
@@ -82,9 +86,7 @@ class CartItemComponent extends Component<Props, State> {
             <button
               className="increase"
               type="button"
-              onClick={() => {
-                increaseProductCount(cartId)
-              }}
+              onClick={this.handleIncreaseButtonClick}
             >
               <img src={plus} alt="plus" />
             </button>
@@ -92,11 +94,7 @@ class CartItemComponent extends Component<Props, State> {
             <button
               type="button"
               className="decrease"
-              onClick={() => {
-                count === 1
-                  ? deleteProduct(cartId)
-                  : decreaseProductCount(cartId)
-              }}
+              onClick={this.handleDecreaseButtonClick}
             >
               <img src={minus} alt="minus" />
             </button>
@@ -115,10 +113,10 @@ class CartItemComponent extends Component<Props, State> {
           </div>
           {photoes.length !== 1 && (
             <div className="prev-next-photoes">
-              <div onClick={() => this.prevPhoto()}>
+              <div onClick={this.prevPhoto}>
                 <img className="shadow-photo" src={arrowLeft} alt="prev" />
               </div>
-              <div onClick={() => this.nextPhoto()}>
+              <div onClick={this.nextPhoto}>
                 <img className="shadow-photo" src={arrowRight} alt="next" />
               </div>
             </div>
