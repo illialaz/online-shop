@@ -91,6 +91,7 @@ const formatData = (response: ApiGetProductsResponse) => {
     (acc, apiProduct) => {
       const product: Product = {
         name: apiProduct.name,
+        id: apiProduct.id,
         description: apiProduct.description,
         inStock: apiProduct.inStock,
         photoes: apiProduct.gallery,

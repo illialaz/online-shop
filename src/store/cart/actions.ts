@@ -11,7 +11,7 @@ export const changeAttribute = ({
   newAttribute,
   cartId,
 }: {
-  newAttribute: { name: string; value: string }
+  newAttribute: { key: string; value: string }
   cartId: number
 }) => {
   return {

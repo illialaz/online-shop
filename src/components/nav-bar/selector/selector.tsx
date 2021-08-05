@@ -18,7 +18,7 @@ class SelectorComponent extends Component<Props> {
     const { attribute, cartId, name, changeAttribute } = this.props
     changeAttribute({
       newAttribute: {
-        name: name,
+        key: name,
         value: attribute,
       },
       cartId,
@@ -46,7 +46,7 @@ class SelectorComponent extends Component<Props> {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     changeAttribute: (attribute: {
-      newAttribute: { name: string; value: string }
+      newAttribute: { key: string; value: string }
       cartId: number
     }) => dispatch(changeAttribute(attribute)),
   }

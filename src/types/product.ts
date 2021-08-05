@@ -5,6 +5,7 @@ export type Attribute = {
 }
 
 export type Product = {
+  id: string
   name: string
   prices: Record<string, number>
   photoes: string[]

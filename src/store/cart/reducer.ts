@@ -1,3 +1,4 @@
+import { equal } from 'assert'
 import { CartItem } from '../../types'
 import { AddToCartType, CartActions, ChangeAttributeType } from './actions'
 import {
@@ -58,33 +59,69 @@ export const reducer = (
           },
         },
       }
-    case CHANGE_ATTRIBUTE:
+    case CHANGE_ATTRIBUTE: {
       const { newAttribute } = action as ChangeAttributeType
-      const { name, value } = newAttribute
+      const currentProduct = state.cart[cartId]
+      const newAttributes = {
+        ...currentProduct.ownAttributes,
+        [newAttribute.key]: newAttribute.value,
+      }
+      const restIds = state.cartIds.filter((id) => id !== cartId)
+      const equalProductId = restIds.find((id) => {
+        const product = state.cart[id]
+        if (product.id !== currentProduct.id) return false
+        const isEqualId = product.attributes.reduce(
+          (acc, attr) =>
+            acc && product.ownAttributes[attr.key] === newAttributes[attr.key],
+          true
+        )
+        return isEqualId
+      })
+
       return {
         ...state,
+        cartIds: state.cartIds.filter((id) => id !== equalProductId),
         cart: {
           ...state.cart,
           [cartId]: {
             ...state.cart[cartId],
-            ownAttributes: {
-              ...state.cart[cartId].ownAttributes,
-              [name]: value,
-            },
+            ownAttributes: newAttributes,
+            count: equalProductId
+              ? state.cart[cartId].count + state.cart[equalProductId].count
+              : state.cart[cartId].count,
           },
+          ...(equalProductId && { [equalProductId]: undefined as CartItem }),
         },
       }
+    }
 
     case ADD_TO_CART:
       const { product } = action as AddToCartType
+      const equalProductId = state.cartIds.find((id) => {
+        const equalProduct = state.cart[id]
+        const isEqualId = equalProduct.attributes.reduce(
+          (acc, attr) =>
+            acc &&
+            equalProduct.ownAttributes[attr.key] ===
+              product.ownAttributes[attr.key],
+          true
+        )
+        return isEqualId
+      })
+
+      const newId = equalProductId || state.newId
+
       return {
         ...state,
+        cartIds: [...state.cartIds, ...(equalProductId ? [] : [newId])],
         cart: {
           ...state.cart,
-          [state.newId]: product,
+          [newId]: {
+            ...product,
+            count: equalProductId ? state.cart[equalProductId].count + 1 : 1,
+          },
         },
-        cartIds: [...state.cartIds, state.newId],
-        newId: state.newId + 1,
+        ...(!equalProductId && { newId: state.newId + 1 }),
       }
 
     default:
