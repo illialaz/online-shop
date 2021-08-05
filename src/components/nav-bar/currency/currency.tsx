@@ -35,17 +35,17 @@ class CurrencyComponent extends Component<Props> {
           alt="select currency"
         />
         {showCurrencyList && (
-          <ul className="currency-list">
+          <div className="currency-list">
             {currencyNames.map((name) => (
-              <li
+              <div
                 className="currency-list-item"
                 key={name}
                 onClick={() => changeCurrency(name)}
               >
                 {currencyList[name].long}
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
       </div>
     )

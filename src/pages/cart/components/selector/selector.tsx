@@ -16,12 +16,12 @@ class SelectorComponent extends Component<Props> {
   render() {
     const { attributes, ownAttribute, changeAttribute, cartId } = this.props
     return (
-      <li className="cartitem-selector">
+      <div className="cartitem-selector">
         <div className="cartitem-attrname">{attributes.key}</div>
-        <ul className="cartitem-attribute">
+        <div className="cartitem-attribute">
           {attributes.value.map((attribute) => {
             return (
-              <li
+              <div
                 className={attribute === ownAttribute ? 'selected' : ''}
                 key={attribute}
               >
@@ -45,11 +45,11 @@ class SelectorComponent extends Component<Props> {
                 >
                   {attributes.type !== 'swatch' && attribute}
                 </button>
-              </li>
+              </div>
             )
           })}
-        </ul>
-      </li>
+        </div>
+      </div>
     )
   }
 }

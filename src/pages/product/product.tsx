@@ -44,20 +44,20 @@ class ProductComponent extends Component<Props, State> {
     return (
       <div className="product-page">
         <div className="photoes-container">
-          <ul className="product-photoes">
+          <div className="product-photoes">
             {photoes.map((photo, index) => {
               return (
-                <li key={photo}>
+                <div key={photo}>
                   <img
                     className="product-photo"
                     src={photo}
                     alt="product"
                     onClick={() => this.changePhoto(index)}
                   />
-                </li>
+                </div>
               )
             })}
-          </ul>
+          </div>
           <div>
             <img
               className="product-main-photo"
@@ -68,14 +68,14 @@ class ProductComponent extends Component<Props, State> {
         </div>
         <div className="product-description">
           <div className="product-name">{name}</div>
-          <ul className="product-attributes">
+          <div className="product-attributes">
             {attributes.map((attr) => (
-              <li className="product-attribute" key={attr.key}>
+              <div className="product-attribute" key={attr.key}>
                 <div className="product-attr-name">{attr.key}:</div>
-                <ul className="product-attr-selectors">
+                <div className="product-attr-selectors">
                   {attr.value.map((item) => {
                     return (
-                      <li
+                      <div
                         key={item}
                         className="product-attr-selector"
                         onClick={() => {
@@ -93,13 +93,13 @@ class ProductComponent extends Component<Props, State> {
                         >
                           {attr.type === 'swatch' ? '' : item}
                         </button>
-                      </li>
+                      </div>
                     )
                   })}
-                </ul>
-              </li>
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
           <div className="product-price">price:</div>
           <div className="product-price-amount">
             {currency}

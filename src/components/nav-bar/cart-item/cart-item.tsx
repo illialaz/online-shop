@@ -33,14 +33,14 @@ class CartItemComponent extends Component<Props> {
     const { name, prices, count, photoes, attributes, ownAttributes } = product
     const photo = photoes[0]
     return (
-      <ul className="cart-item">
+      <div className="cart-item">
         <div className="description">
           <div className="name">{name}</div>
           <div className="price">
             {currency}
             {prices[currencyName].toFixed(2)}
           </div>
-          <ul className="selectors">
+          <div className="selectors">
             {attributes.map((item) => (
               <Selector
                 attributes={item}
@@ -49,7 +49,7 @@ class CartItemComponent extends Component<Props> {
                 key={item.key}
               />
             ))}
-          </ul>
+          </div>
         </div>
         <div className="count">
           <button
@@ -75,7 +75,7 @@ class CartItemComponent extends Component<Props> {
         <div className="photo">
           <img src={photo} alt="cart product" className="main-photo" />
         </div>
-      </ul>
+      </div>
     )
   }
 }

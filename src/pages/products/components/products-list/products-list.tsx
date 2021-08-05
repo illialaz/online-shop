@@ -11,11 +11,11 @@ class ProductsListComponent extends Component<Props> {
   render() {
     const { productIds } = this.props
     return (
-      <ul className="products-list">
+      <div className="products-list">
         {productIds.map((id) => {
           return <Product key={id} productId={id} />
         })}
-      </ul>
+      </div>
     )
   }
 }

@@ -11,11 +11,11 @@ class CartListComponent extends Component<Props> {
   render() {
     const { cartIds } = this.props
     return (
-      <ul className="cart-list">
+      <div className="cart-list">
         {cartIds.map((id) => (
           <CartItem key={id} cartId={id} />
         ))}
-      </ul>
+      </div>
     )
   }
 }

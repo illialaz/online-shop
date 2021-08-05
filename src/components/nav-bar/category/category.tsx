@@ -15,7 +15,7 @@ export default class CategoryComponent extends Component<Props> {
   render() {
     const { changeCategory, fetchProducts, category, active } = this.props
     return (
-      <li className={active ? 'active-category' : ''}>
+      <div className={active ? 'active-category' : ''}>
         <div
           className="category"
           onClick={() => {
@@ -25,7 +25,7 @@ export default class CategoryComponent extends Component<Props> {
         >
           {category}
         </div>
-      </li>
+      </div>
     )
   }
 }

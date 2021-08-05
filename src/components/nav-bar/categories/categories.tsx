@@ -12,7 +12,7 @@ export class CategoriesComponent extends Component<Props> {
   render = () => {
     const { activeCategory } = this.props
     return (
-      <ul className="categories">
+      <div className="categories">
         <Category
           category={CategoryType.all}
           active={activeCategory === CategoryType.all}
@@ -25,7 +25,7 @@ export class CategoriesComponent extends Component<Props> {
           category={CategoryType.tech}
           active={activeCategory === CategoryType.tech}
         />
-      </ul>
+      </div>
     )
   }
 }

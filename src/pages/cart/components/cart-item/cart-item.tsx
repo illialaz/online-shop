@@ -59,13 +59,13 @@ class CartItemComponent extends Component<Props, State> {
     const { currentPhoto } = this.state
     const { photoes, name, count, attributes, prices, ownAttributes } = product
     return (
-      <li className="cartpage-item">
+      <div className="cartpage-item">
         <div className="cartitem-descr">
           <div>{name}</div>
           <div className="cartitem-price">
             {currency} {prices[currencyName]}
           </div>
-          <ul>
+          <div>
             {attributes.map((item) => {
               return (
                 <Selector
@@ -76,7 +76,7 @@ class CartItemComponent extends Component<Props, State> {
                 />
               )
             })}
-          </ul>
+          </div>
         </div>
         <div className="counter-photo-container">
           <div className="cartitem-count">
@@ -125,7 +125,7 @@ class CartItemComponent extends Component<Props, State> {
             </div>
           )}
         </div>
-      </li>
+      </div>
     )
   }
 }
