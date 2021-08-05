@@ -1,4 +1,3 @@
-import { equal } from 'assert'
 import { CartItem } from '../../types'
 import { AddToCartType, CartActions, ChangeAttributeType } from './actions'
 import {

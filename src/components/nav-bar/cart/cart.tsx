@@ -8,6 +8,7 @@ import cartLogo from '../../../assets/images/cart.svg'
 import { handleShowCart } from '../../../store/actions'
 import { CartItem } from '../cart-item'
 import { RootState } from '../../../store/types'
+import { amountSelector, quantitySelector } from '../../../store/cart/selectors'
 
 type Props = PropsFromRedux
 
@@ -56,12 +57,7 @@ class CartComponent extends Component<Props, State> {
   }
 
   render = () => {
-    const { cart, showCartList, currency, currencyName, cartIds } = this.props
-
-    const total = cartIds.reduce(
-      (total, id) => total + cart[id].prices[currencyName] * cart[id].count,
-      0
-    )
+    const { showCartList, currency, cartIds, total, quantity } = this.props
 
     const roundedTotal = total.toFixed(2)
 
@@ -69,9 +65,7 @@ class CartComponent extends Component<Props, State> {
       <div className="cart" onClick={this.handleCartClick}>
         <div className="cart-symbol">
           <img src={cartLogo} alt="Cart" />
-          {cartIds.length !== 0 && (
-            <div className="cart-counter">{cartIds.length}</div>
-          )}
+          {quantity !== 0 && <div className="cart-counter">{quantity}</div>}
         </div>
 
         {showCartList && (
@@ -129,6 +123,8 @@ const mapStateToProps = (state: RootState) => {
   return {
     cart,
     cartIds,
+    total: amountSelector(state),
+    quantity: quantitySelector(state),
     showCartList,
     currency: currencyList[currency].short,
     currencyName: currency,
