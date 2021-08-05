@@ -46,6 +46,9 @@
 .minicart .cart-list {
   position: flex;
   flex-grow: 1;
+}
+
+.minicart .cart-list.scroll {
   overflow-y: scroll;
 }
 
@@ -86,7 +89,6 @@
   cursor: pointer;
   color: white;
   box-sizing: border-box;
-  padding: 13px 29.5px;
   height: 43px;
   width: 140px;
   text-align: center;
@@ -100,6 +102,5 @@
 .minicart .buttons .view-bag {
   border: 1px solid var(--black);
   color: var(--black);
-  padding: 12px 35px;
   background-color: white;
 }

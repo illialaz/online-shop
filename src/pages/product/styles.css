@@ -90,6 +90,7 @@
 .product-page .product-attr-selectors {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   margin-top: 5px;
 }
 

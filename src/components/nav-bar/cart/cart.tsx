@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { Component, createRef } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Dispatch } from 'redux'
@@ -11,7 +11,40 @@ import { RootState } from '../../../store/types'
 
 type Props = PropsFromRedux
 
-class CartComponent extends Component<Props> {
+type State = {
+  showScroll: boolean
+}
+
+const padding = 28
+
+class CartComponent extends Component<Props, State> {
+  showScroll = false
+  cartListHeight = 0
+  minicartHeight = 0
+  cartBottomHeight = 0
+  minicart = createRef<HTMLDivElement>()
+  cartList = createRef<HTMLDivElement>()
+  cartBottom = createRef<HTMLDivElement>()
+
+  componentDidUpdate = () => {
+    this.minicartHeight = this.minicart.current?.offsetHeight || 0
+    this.cartListHeight = this.cartList.current?.scrollHeight || 0
+    this.cartBottomHeight = this.cartBottom.current?.offsetHeight || 0
+
+    const shouldAddScroll =
+      this.minicartHeight - this.cartBottomHeight - padding <
+      this.cartListHeight
+
+    if (!this.showScroll && shouldAddScroll) {
+      this.showScroll = true
+      this.forceUpdate()
+    }
+    if (this.showScroll && !shouldAddScroll) {
+      this.showScroll = false
+      this.forceUpdate()
+    }
+  }
+
   render = () => {
     const {
       cart,
@@ -21,10 +54,14 @@ class CartComponent extends Component<Props> {
       handleShowCart,
       cartIds,
     } = this.props
-    const total = cartIds.reduce((total, id) => {
-      return total + cart[id].prices[currencyName] * cart[id].count
-    }, 0)
+
+    const total = cartIds.reduce(
+      (total, id) => total + cart[id].prices[currencyName] * cart[id].count,
+      0
+    )
+
     const roundedTotal = total.toFixed(2)
+
     return (
       <div
         className="cart"
@@ -41,8 +78,12 @@ class CartComponent extends Component<Props> {
         </div>
 
         {showCartList && (
-          <div className="minicart">
-            <section className="cart-list" onClick={(e) => e.stopPropagation()}>
+          <div className="minicart" ref={this.minicart}>
+            <section
+              className={'cart-list ' + (this.showScroll ? 'scroll' : '')}
+              ref={this.cartList}
+              onClick={(e) => e.stopPropagation()}
+            >
               <div className="">
                 <span>My Bag</span>, {cartIds.length || 0} item
                 {cartIds.length !== 1 && 's'}
@@ -55,7 +96,7 @@ class CartComponent extends Component<Props> {
                 return <CartItem cartId={id} key={id} />
               })}
             </section>
-            <section className="cart-bottom">
+            <section className="cart-bottom" ref={this.cartBottom}>
               <div className="total">
                 <span>total</span>
                 <div className="price">

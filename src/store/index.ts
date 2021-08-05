@@ -7,7 +7,7 @@ import { reducer } from './reducer'
 
 const middleware = []
 middleware.push(thunk)
-middleware.push(createLogger())
+// middleware.push(createLogger())
 
 export const store = createStore(
   reducer,
