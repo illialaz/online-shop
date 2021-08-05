@@ -114,14 +114,16 @@ class CartItemComponent extends Component<Props, State> {
               ))}
             </div>
           </div>
-          <div className="prev-next-photoes">
-            <div onClick={() => this.prevPhoto()}>
-              <img className="shadow-photo" src={arrowLeft} alt="prev" />
+          {photoes.length !== 1 && (
+            <div className="prev-next-photoes">
+              <div onClick={() => this.prevPhoto()}>
+                <img className="shadow-photo" src={arrowLeft} alt="prev" />
+              </div>
+              <div onClick={() => this.nextPhoto()}>
+                <img className="shadow-photo" src={arrowRight} alt="next" />
+              </div>
             </div>
-            <div onClick={() => this.nextPhoto()}>
-              <img className="shadow-photo" src={arrowRight} alt="next" />
-            </div>
-          </div>
+          )}
         </div>
       </li>
     )
