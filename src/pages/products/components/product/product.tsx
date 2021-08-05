@@ -21,7 +21,7 @@ class ProductComponent extends Component<Props> {
     const { name, prices, photoes, inStock, attributes } = product
     const photo = photoes[0]
     return (
-      <li className={'list-product ' + (inStock ? '' : 'out-of-stock')}>
+      <div className={'list-product ' + (inStock ? '' : 'out-of-stock')}>
         <Link to={'products/' + productId}>
           <img className="main-image" src={photo} alt="product" />
           {!inStock && <div className="stock-descr">out of stock</div>}
@@ -43,7 +43,7 @@ class ProductComponent extends Component<Props> {
             <img src={whiteCart} alt="add to cart"></img>
           </div>
         )}
-      </li>
+      </div>
     )
   }
 }
@@ -67,7 +67,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 const connector = connect(mapStateToProps, mapDispatchToProps)
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-export const Product = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProductComponent)
+export const Product = connector(ProductComponent)

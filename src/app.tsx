@@ -65,4 +65,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 const connector = connect(mapStateToProps, mapDispatchToProps)
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-export const App = connect(mapStateToProps, mapDispatchToProps)(AppComponent)
+export const App = connector(AppComponent)
