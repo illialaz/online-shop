@@ -26,7 +26,13 @@ class CartComponent extends Component<Props> {
     }, 0)
     const roundedTotal = total.toFixed(2)
     return (
-      <div className="cart" onClick={handleShowCart}>
+      <div
+        className="cart"
+        onClick={(e) => {
+          e.stopPropagation()
+          handleShowCart()
+        }}
+      >
         <div className="cart-symbol">
           <img src={cartLogo} alt="Cart" />
           {cartIds.length !== 0 && (

@@ -1,4 +1,8 @@
-import { HANDLE_SHOW_CART, HANDLE_SHOW_CURRENCY } from './types'
+import {
+  HANDLE_SHOW_CART,
+  HANDLE_SHOW_CURRENCY,
+  HIDE_CURRENCY_CART,
+} from './types'
 import { CurrencyCartActions } from './actions'
 
 type CurrencyCartState = {
@@ -29,6 +33,12 @@ export const reducer = (
         showCartList:
           state.showCurrencyList === false ? false : state.showCartList,
         showCurrencyList: !state.showCurrencyList,
+      }
+    case HIDE_CURRENCY_CART:
+      return {
+        ...state,
+        showCartList: false,
+        showCurrencyList: false,
       }
     default:
       return state

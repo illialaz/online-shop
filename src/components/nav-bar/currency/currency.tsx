@@ -21,7 +21,13 @@ class CurrencyComponent extends Component<Props> {
       changeCurrency,
     } = this.props
     return (
-      <div className="currency" onClick={handleShowCurrency}>
+      <div
+        className="currency"
+        onClick={(e) => {
+          e.stopPropagation()
+          handleShowCurrency()
+        }}
+      >
         <div className="currency-symbol">{currencyList[currency].short}</div>
         <img
           className="currency-arrow"

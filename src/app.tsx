@@ -8,7 +8,7 @@ import {
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { fetchProducts, fetchCurrency } from './store/actions'
+import { fetchProducts, fetchCurrency, hideCurrencyCart } from './store/actions'
 import { Cart, Product, Products } from './pages'
 import { NavBar } from './components/nav-bar'
 import { ScrollToTop } from './components/scroll-to-top'
@@ -26,12 +26,12 @@ class AppComponent extends React.Component<Props> {
   }
 
   render() {
-    const { showCartList } = this.props
+    const { showCartList, hideCurrencyCart } = this.props
     return (
       <Router>
         <ScrollToTop />
-        <NavBar />
-        <main className="main">
+        <main className="main" onClick={hideCurrencyCart}>
+          <NavBar />
           <Switch>
             <Route exact path="/products" component={Products} />
             <Route exact path="/products/:id" component={Product} />
@@ -58,6 +58,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     fetchProducts: () => dispatch(fetchProducts(Categories.all) as any),
     fetchCurrency: () => dispatch(fetchCurrency() as any),
+    hideCurrencyCart: () => dispatch(hideCurrencyCart()),
   }
 }
 
