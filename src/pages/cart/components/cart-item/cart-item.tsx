@@ -65,18 +65,17 @@ class CartItemComponent extends Component<Props, State> {
           <div className="cartitem-price">
             {currency} {prices[currencyName]}
           </div>
-          <div>
-            {attributes.map((item) => {
-              return (
-                <Selector
-                  attributes={item}
-                  ownAttribute={ownAttributes[item.key]}
-                  cartId={cartId}
-                  key={item.key}
-                />
-              )
-            })}
-          </div>
+
+          {attributes.map((item) => {
+            return (
+              <Selector
+                attributes={item}
+                ownAttribute={ownAttributes[item.key]}
+                cartId={cartId}
+                key={item.key}
+              />
+            )
+          })}
         </div>
         <div className="counter-photo-container">
           <div className="cartitem-count">

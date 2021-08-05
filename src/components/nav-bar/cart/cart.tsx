@@ -50,11 +50,10 @@ class CartComponent extends Component<Props> {
               {cartIds.length === 0 && (
                 <div className="empty-bag">Your bag is empty</div>
               )}
-              <div>
-                {cartIds.map((id) => {
-                  return <CartItem cartId={id} key={id} />
-                })}
-              </div>
+
+              {cartIds.map((id) => {
+                return <CartItem cartId={id} key={id} />
+              })}
             </section>
             <section className="cart-bottom">
               <div className="total">
