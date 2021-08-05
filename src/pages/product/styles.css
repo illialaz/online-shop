@@ -97,7 +97,6 @@
   font-family: sans-serif;
   font-size: 16px;
   height: 45px;
-  min-width: 63px;
 }
 
 .product-page .product-attr-selector .product-attr-button {
@@ -110,7 +109,8 @@
   cursor: pointer;
 }
 
-.product-page .product-attr-selector .product-attr-button.selected {
+.product-page .product-attr-selector .product-attr-button.selected,
+.product-page .product-attr-selector .product-attr-button.fill-color.selected {
   background-color: var(--black);
   opacity: 100%;
   color: white;
@@ -118,6 +118,7 @@
 
 .product-page .product-attr-selector .product-attr-button.fill-color {
   opacity: 40%;
+  min-width: 45px;
 }
 
 .product-page .product-attr-selector .product-attr-button:hover {

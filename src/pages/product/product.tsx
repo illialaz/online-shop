@@ -86,7 +86,7 @@ class ProductComponent extends Component<Props, State> {
                           type="button"
                           className={
                             'product-attr-button ' +
-                            (attr.type === 'swatch' ? 'fill-color' : ' ') +
+                            (attr.type === 'swatch' ? 'fill-color ' : '') +
                             (ownAttributes[attr.key] === item ? 'selected' : '')
                           }
                           style={{ backgroundColor: item }}
