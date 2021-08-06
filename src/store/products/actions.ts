@@ -15,6 +15,7 @@ export const fetchProducts = (category: Categories) => {
         products {
           id
           name
+          brand
           inStock
           gallery
           description
@@ -65,6 +66,7 @@ type ApiAttribute = {
 type ApiProduct = {
   id: string
   name: string
+  brand: string
   inStock: boolean
   gallery: string[]
   description: string
@@ -91,6 +93,7 @@ const formatData = (response: ApiGetProductsResponse) => {
     (acc, apiProduct) => {
       const product: Product = {
         name: apiProduct.name,
+        brand: apiProduct.brand,
         id: apiProduct.id,
         description: apiProduct.description,
         inStock: apiProduct.inStock,

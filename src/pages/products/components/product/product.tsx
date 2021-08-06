@@ -17,13 +17,14 @@ type Props = PropsFromRedux & OwnProps
 
 class ProductComponent extends Component<Props> {
   handleAddToCart = () => {
+    const { addToCart } = this.props
     const { product } = this.props
     addToCart({ ...product, ownAttributes: {}, count: 1 })
   }
 
   render() {
     const { productId, product, currency, currencyName } = this.props
-    const { name, prices, photoes, inStock, attributes } = product
+    const { name, prices, photoes, inStock, attributes, brand } = product
     const photo = photoes[0]
 
     return (
@@ -32,7 +33,9 @@ class ProductComponent extends Component<Props> {
           <img className="main-image" src={photo} alt="product" />
           {!inStock && <div className="stock-descr">out of stock</div>}
           <div className="name-price-container">
-            <div>{name}</div>
+            <div>
+              {brand} {name}
+            </div>
             <div className="product-price">
               {currency}
               {prices[currencyName]}

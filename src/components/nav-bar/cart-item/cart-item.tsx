@@ -33,13 +33,17 @@ class CartItemComponent extends Component<Props> {
 
   render = () => {
     const { product, currency, cartId, currencyName } = this.props
-    const { name, prices, count, photoes, attributes, ownAttributes } = product
+    const { name, prices, count, photoes, attributes, ownAttributes, brand } =
+      product
     const photo = photoes[0]
 
     return (
       <div className="cart-item">
         <div className="description">
-          <div className="name">{name}</div>
+          <div className="name">
+            <div>{brand}</div>
+            <div>{name}</div>
+          </div>
           <div className="price">
             {currency}
             {prices[currencyName].toFixed(2)}

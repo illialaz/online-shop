@@ -73,8 +73,12 @@
   flex-grow: 0;
 }
 
-.product-page .product-name {
+.product-page .product-description .product-name {
   font-size: 30px;
+}
+.product-page .product-description .product-brand {
+  font-size: 30px;
+  font-weight: 600;
 }
 
 .product-page .product-attribute {

@@ -18,6 +18,10 @@
   font-weight: 700;
 }
 
+.cartpage-item .cartitem-descr .cartitem-brand {
+  font-weight: 600;
+}
+
 .cartpage-item .counter-photo-container {
   display: flex;
   justify-content: space-around;

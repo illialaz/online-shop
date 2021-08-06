@@ -60,11 +60,13 @@ class CartItemComponent extends Component<Props, State> {
   render() {
     const { cartId, product, currency, currencyName } = this.props
     const { currentPhoto } = this.state
-    const { photoes, name, count, attributes, prices, ownAttributes } = product
+    const { photoes, name, count, attributes, prices, ownAttributes, brand } =
+      product
 
     return (
       <div className="cartpage-item">
         <div className="cartitem-descr">
+          <div className="cartitem-brand">{brand}</div>
           <div>{name}</div>
           <div className="cartitem-price">
             {currency} {prices[currencyName]}

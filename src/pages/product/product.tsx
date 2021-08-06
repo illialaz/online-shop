@@ -51,7 +51,8 @@ class ProductComponent extends Component<Props, State> {
       return <div className="loading">Loading...</div>
     }
 
-    const { photoes, prices, attributes, description, name, inStock } = product
+    const { photoes, prices, attributes, description, name, inStock, brand } =
+      product
 
     return (
       <div className="product-page">
@@ -79,6 +80,7 @@ class ProductComponent extends Component<Props, State> {
           </div>
         </div>
         <div className="product-description">
+          <div className="product-brand">{brand}</div>
           <div className="product-name">{name}</div>
           <div className="product-attributes">
             {attributes.map((attr) => (
